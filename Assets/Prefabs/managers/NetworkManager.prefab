@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1327853366256298}
+  m_IsPrefabParent: 1
+--- !u!1 &1327853366256298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4472571324051112}
+  - component: {fileID: 114725720947347990}
+  m_Layer: 0
+  m_Name: NetworkManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4472571324051112
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1327853366256298}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114725720947347990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1327853366256298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa2a7791ffd44cfdb78fdbf557f56a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 174072, guid: 4d74c42f6df596a4aa86eabd8fd8cec9, type: 2}
+  enemyPrefab: {fileID: 140220, guid: ae02c92e329234aae83152fff7632a87, type: 2}
+  Handgun1: {fileID: 1923763738643586, guid: 98636a48a92d96b43ae10f404ef162f8, type: 2}
+  Handgun2: {fileID: 1785547836667042, guid: f93fa57d6e31d61419781b771bd1e97f, type: 2}
+  Revolver1: {fileID: 1842943802288304, guid: 72d4a19bec2da1f42b07a43f5ed58f28, type: 2}
+  Shotgun2: {fileID: 1901056794303358, guid: 2a908d9635762134c904c716fcf77d69, type: 2}
+  SMG1: {fileID: 1907642893223368, guid: f5a3f42a89df8f843a59c4f882e3fb41, type: 2}
+  SMG2: {fileID: 1542670882105286, guid: c1759ac170bd0a1468b5c28b66b058d7, type: 2}
+  SMG3: {fileID: 1464098859341162, guid: 514699ff7bd28944eac7a4d7a4c20f17, type: 2}
+  AssaultRifle1: {fileID: 181608, guid: 0b050706631744f4da9c1756efbedfa3, type: 2}
+  AssaultRifle2: {fileID: 111776, guid: 12418e546e41f4d78a9b004317fdfca3, type: 2}
+  Sniper1: {fileID: 1277624017734986, guid: 4f2c43e0e76b0c54a9c9db34fee38144, type: 2}
+  Ammo: {fileID: 1196336793162808, guid: a5ff3ac0cc9197c45807ad6ad035e6cb, type: 2}
+  loadingScreen: {fileID: 0}
+  deadPerson: {fileID: 1101212141701386, guid: a8841d036d1706f4c8b2f4c19e1248b3, type: 2}
+  enemyDeadPerson: {fileID: 1101212141701386, guid: af00fa888cc794d3a8b4bd91e651659e,
+    type: 2}

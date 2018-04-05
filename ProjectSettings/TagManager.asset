@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Metal (Static)
+  - Metal
+  - Target
+  - Concrete (Static)
+  - Wood (Static)
+  - Dirt (Static)
+  - Assault Rifle 1
+  - Assault Rifle 2
+  - Grenade Launcher
+  - Hand Grenade
+  - Arm
+  - Melee
+  - Sniper Rifle
+  - Handgun 1
+  - Handgun 2
+  - Revolver
+  - Shotgun
+  - SMG 1
+  - SMG 2
+  - SMG 3
+  - Ammo
+  - Wood
+  - ExplosiveBarrel
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - LocalPlayer
+  - RemotePlayer
+  - DontDraw
+  - Ground
+  - Minimap
+  - SafeArea
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Weapon Sprite
+    uniqueID: 1511976867
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0

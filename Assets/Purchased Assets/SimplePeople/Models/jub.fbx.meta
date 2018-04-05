@@ -1,0 +1,211 @@
+fileFormatVersion: 2
+guid: bc66fd48921fc42b59de1d3b27c3ce20
+timeCreated: 1517483055
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Arm_Left_jnt
+    100002: Arm_Right_jnt
+    100004: Camera
+    100006: CH_BusinessMan
+    100008: CH_FireFighter
+    100010: CH_Hobo
+    100012: CH_Pimp
+    100014: CH_Policeman
+    100016: CH_Prostitute
+    100018: CH_Punk
+    100020: CH_RiotCop
+    100022: CH_Roadworker
+    100024: CH_Robber
+    100026: CH_Sheriff
+    100028: CH_StreetMan
+    100030: CH_Trucker
+    100032: CH_Woman
+    100034: Character_Rig
+    100036: Chest_jnt
+    100038: Foot_Left_jnt
+    100040: Foot_Right_jnt
+    100042: Forearm_Left_jnt
+    100044: Forearm_Right_jnt
+    100046: Hand_Left_jnt
+    100048: Hand_Left_jnt_end
+    100050: Hand_Right_jnt
+    100052: Hand_Right_jnt_end
+    100054: Head_jnt
+    100056: Head_jnt_end
+    100058: Hips_jnt
+    100060: //RootNode
+    100062: Lamp
+    100064: LowerLeg_Left_jnt
+    100066: LowerLeg_Right_jnt
+    100068: Neck_jnt
+    100070: Shoulder_Left_jnt
+    100072: Shoulder_Right_jnt
+    100074: Spine_jnt
+    100076: Spine_jnt.001
+    100078: Toe_Left_jnt
+    100080: Toe_Left_jnt_end
+    100082: Toe_Right_jnt
+    100084: Toe_Right_jnt_end
+    100086: UpperLeg_Left_jnt
+    100088: UpperLeg_Right_jnt
+    400000: Arm_Left_jnt
+    400002: Arm_Right_jnt
+    400004: Camera
+    400006: CH_BusinessMan
+    400008: CH_FireFighter
+    400010: CH_Hobo
+    400012: CH_Pimp
+    400014: CH_Policeman
+    400016: CH_Prostitute
+    400018: CH_Punk
+    400020: CH_RiotCop
+    400022: CH_Roadworker
+    400024: CH_Robber
+    400026: CH_Sheriff
+    400028: CH_StreetMan
+    400030: CH_Trucker
+    400032: CH_Woman
+    400034: Character_Rig
+    400036: Chest_jnt
+    400038: Foot_Left_jnt
+    400040: Foot_Right_jnt
+    400042: Forearm_Left_jnt
+    400044: Forearm_Right_jnt
+    400046: Hand_Left_jnt
+    400048: Hand_Left_jnt_end
+    400050: Hand_Right_jnt
+    400052: Hand_Right_jnt_end
+    400054: Head_jnt
+    400056: Head_jnt_end
+    400058: Hips_jnt
+    400060: //RootNode
+    400062: Lamp
+    400064: LowerLeg_Left_jnt
+    400066: LowerLeg_Right_jnt
+    400068: Neck_jnt
+    400070: Shoulder_Left_jnt
+    400072: Shoulder_Right_jnt
+    400074: Spine_jnt
+    400076: Spine_jnt.001
+    400078: Toe_Left_jnt
+    400080: Toe_Left_jnt_end
+    400082: Toe_Right_jnt
+    400084: Toe_Right_jnt_end
+    400086: UpperLeg_Left_jnt
+    400088: UpperLeg_Right_jnt
+    2000000: Camera
+    2100000: blinn6
+    2100002: SimplePeople_mesh_lambert2
+    2100004: blinn5
+    4300000: CH_Hobo
+    4300002: CH_Trucker
+    4300004: CH_Sheriff
+    4300006: CH_Woman
+    4300008: CH_Prostitute
+    4300010: CH_Robber
+    4300012: CH_Roadworker
+    4300014: CH_RiotCop
+    4300016: CH_Policeman
+    4300018: CH_StreetMan
+    4300020: CH_FireFighter
+    4300022: CH_Punk
+    4300024: CH_BusinessMan
+    4300026: CH_Pimp
+    9500000: //RootNode
+    10800000: Lamp
+    13700000: CH_BusinessMan
+    13700002: CH_FireFighter
+    13700004: CH_Hobo
+    13700006: CH_Pimp
+    13700008: CH_Policeman
+    13700010: CH_Prostitute
+    13700012: CH_Punk
+    13700014: CH_RiotCop
+    13700016: CH_Roadworker
+    13700018: CH_Robber
+    13700020: CH_Sheriff
+    13700022: CH_StreetMan
+    13700024: CH_Trucker
+    13700026: CH_Woman
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

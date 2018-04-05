@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1853028588891724}
+  m_IsPrefabParent: 1
+--- !u!1 &1853028588891724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4463057108179388}
+  - component: {fileID: 114498833643281026}
+  - component: {fileID: 114700043851331062}
+  - component: {fileID: 114570034622866202}
+  m_Layer: 0
+  m_Name: Global
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4463057108179388
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853028588891724}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114498833643281026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853028588891724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a43a04119748ad4883bd26373934207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  metalImpactStaticTag: Metal (Static)
+  metalImpactTag: Metal
+  woodImpactStaticTag: Wood (Static)
+  woodImpactTag: Wood
+  concreteImpactStaticTag: Concrete (Static)
+  concreteImpactTag: Concrete
+  dirtImpactStaticTag: Dirt (Static)
+  dirtImpactTag: Dirt
+  enemyImpactStaticTag: Enemy (Static)
+  enemyImpactTag: Enemy
+--- !u!114 &114570034622866202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853028588891724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a856dcff6ce10c448bed72cbe23f0c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114700043851331062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853028588891724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95b4c7b232a34446843d8309c1e16ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  metalImpactStaticPrefab: {fileID: 400004, guid: aee8c861c3032a541a168f56e6cdceef,
+    type: 2}
+  metalImpactPrefab: {fileID: 400004, guid: 0444d53c1d23d13478b977e94447b08d, type: 2}
+  woodImpactStaticPrefab: {fileID: 400002, guid: 3554e4e150222814eae9d8f3658dacb4,
+    type: 2}
+  woodImpactPrefab: {fileID: 400002, guid: f02f9dcec86245b4c967f86908e64576, type: 2}
+  concreteImpactStaticPrefab: {fileID: 400002, guid: 9eeaaeea786b458418443045c47c6b51,
+    type: 2}
+  concreteImpactPrefab: {fileID: 400002, guid: 7e4f47530ea204b4b979969e82485eb4, type: 2}
+  dirtImpactStaticPrefab: {fileID: 400006, guid: dbbc2a7585c794843a63dc5b57467fff,
+    type: 2}
+  dirtImpactPrefab: {fileID: 400004, guid: 9cec3af88f0a90a4c85c739d607461c9, type: 2}
+  enemyImpactStaticPrefab: {fileID: 400002, guid: 53859b525f6535a409708c9843178057,
+    type: 2}
+  enemyImpactPrefab: {fileID: 400002, guid: 0d88b2b087640054a939ab52f3e4d076, type: 2}
