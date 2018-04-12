@@ -19,6 +19,7 @@ public class Impact : MonoBehaviour
         impactStrategies.Add(impactTags.concreteImpactTag, new ImpactConcreteStrategy());
         impactStrategies.Add(impactTags.dirtImpactStaticTag, new ImpactDirtStaticStrategy());
         impactStrategies.Add(impactTags.dirtImpactTag, new ImpactDirtStrategy());
+        impactStrategies.Add(impactTags.explosiveBarrelImpactTag, new ImpactExplosiveBarrelStrategy());
         impactStrategies.Add(impactTags.enemyImpactStaticTag, new ImpactEnemyStaticStrategy());
         impactStrategies.Add(impactTags.enemyImpactTag, new ImpactEnemyStrategy());
     }

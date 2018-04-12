@@ -13,7 +13,7 @@ public class ItemPickup : MonoBehaviour
     void Start()
     {
         GameObject go = GameObject.Find("SocketIO");
-		socket = go.GetComponent<SocketIOComponent>();
+        socket = go.GetComponent<SocketIOComponent>();
     }
 
     // Update is called once per frame
@@ -26,24 +26,29 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            Debug.Log("Emit Pickup");
             player = GameObject.FindGameObjectWithTag("Player");
             inventory = player.GetComponent<Inventory>();
             if (gameObject.tag != "Ammo" && !inventory.isFull())
             {
                 transform.gameObject.SetActive(false);
                 inventory.AddItem(transform);
-                EmitPickUpWeapon();
+                socket.Emit("d", GetEmitPickupData());
             }
 
-            else inventory.currentAmmo += 10;
+            else
+            {
+                socket.Emit("g", GetEmitPickupData());
+                inventory.currentAmmo += 10;
+            }
         }
     }
-    void EmitPickUpWeapon() {
-        Debug.Log("Emit Pickup");
+    JSONObject GetEmitPickupData()
+    {
         Dictionary<string, string> data = new Dictionary<string, string>();
-        string weaponID = transform.name.Replace("\"", "");
-        string s = string.Format("[@{0}@]", weaponID);
+        string id = transform.name.Replace("\"", "");
+        string s = string.Format("[@{0}@]", id);
         data["d"] = s;
-        socket.Emit("d", new JSONObject(data));
+        return new JSONObject(data);
     }
 }

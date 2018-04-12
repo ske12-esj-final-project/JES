@@ -34,7 +34,6 @@ public class RoomSelectItem : MonoBehaviour
         string s = string.Format("[@{0}@, {1}]", playerID, RemoveDbq(roomID));
         data["d"] = s;
         socket.Emit("y", new JSONObject(data));
-        GameObject.Find("NetworkManager").GetComponent<NetworkManager>().StartCoroutine("SetupPlayer");
     }
 
     string RemoveDbq(string str)

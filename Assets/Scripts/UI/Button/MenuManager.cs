@@ -185,19 +185,20 @@ public class MenuManager : MonoBehaviour
         data["password"] = passwordLoginInput.text;
         string jsonStr = new JSONObject(data).ToString();
 
-        UnityWebRequest request = Post("http://jes.api.user.safesuk.me/v1/users/login", jsonStr);
+        // UnityWebRequest request = Post("http://jes.api.user.safesuk.me/v1/users/login", jsonStr);
+        UnityWebRequest request = Post("http://game.safesuk.me/login", jsonStr);
 
         yield return request.SendWebRequest();
-
         StoreTokenAndGoMainScreen(request);
-
     }
 
     void StoreTokenAndGoMainScreen(UnityWebRequest request)
     {
         if (request.isNetworkError || request.isHttpError)
         {
-            Debug.LogError(request.error);
+            Debug.LogError(request.error.ToString());
+            Debug.LogError(request.responseCode);
+            loginErrorText.text = "Login Error";
         }
 
         else

@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4077085786233642}
   - component: {fileID: 33667416525860474}
   - component: {fileID: 23469805595228386}
-  - component: {fileID: 114579007303056808}
   m_Layer: 0
   m_Name: sniper_trigger
   m_TagString: Untagged
@@ -56,7 +55,6 @@ GameObject:
   - component: {fileID: 4696898319362720}
   - component: {fileID: 33540941103311008}
   - component: {fileID: 23215772198054486}
-  - component: {fileID: 114368657756967198}
   m_Layer: 0
   m_Name: sniper_main
   m_TagString: Untagged
@@ -74,7 +72,6 @@ GameObject:
   - component: {fileID: 4713017774468968}
   - component: {fileID: 33297790147099654}
   - component: {fileID: 23601744526364866}
-  - component: {fileID: 114405460074257768}
   m_Layer: 0
   m_Name: sniper_slider
   m_TagString: Untagged
@@ -285,48 +282,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponIndex: 10
   speed: 20
---- !u!114 &114368657756967198
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1490375813544314}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 0
-  eraseRenderer: 0
-  originalLayer: 0
-  originalMaterials: []
---- !u!114 &114405460074257768
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1934205554755498}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 0
-  eraseRenderer: 0
-  originalLayer: 0
-  originalMaterials: []
---- !u!114 &114579007303056808
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1468619851326254}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 0
-  eraseRenderer: 0
-  originalLayer: 0
-  originalMaterials: []

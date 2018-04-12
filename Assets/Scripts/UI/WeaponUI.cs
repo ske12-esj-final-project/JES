@@ -11,14 +11,27 @@ public class WeaponUI : MonoBehaviour
     {
         if (mapper.ContainsKey(weapon))
         {
-            mapper[weapon].GetComponent<WeaponItemUI>().Set(weapon.currentAmmo, weapon.weaponImage);
+            mapper[weapon].GetComponent<WeaponItemUI>().Set(weapon);
         }
 
         else
         {
             GameObject itemUI = (GameObject)Instantiate(itemUIPrefab, transform);
-            itemUI.GetComponent<WeaponItemUI>().Set(weapon.currentAmmo, weapon.weaponImage);
+            itemUI.GetComponent<WeaponItemUI>().Set(weapon);
             mapper.Add(weapon, itemUI);
+        }
+    }
+
+    public void Enable(Weapon weapon)
+    {
+        foreach (KeyValuePair<Weapon, GameObject> pair in mapper)
+        {
+            if (pair.Key == weapon)
+            {
+                mapper[weapon].GetComponent<WeaponItemUI>().Enable();
+            }
+
+            else mapper[pair.Key].GetComponent<WeaponItemUI>().Disable();
         }
     }
 }

@@ -14,6 +14,7 @@ public class RoomManager : MonoBehaviour
     public GameObject gameManager;
     private GameObject[] rooms;
     private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
+    private bool isPlayerCreated = false;
 
     void Awake()
     {
@@ -21,11 +22,6 @@ public class RoomManager : MonoBehaviour
         {
             Instantiate(gameManager);
         }
-    }
-
-    // Use this for initialization
-    void Start()
-    {
         GameObject go = GameObject.Find("SocketIO");
         socket = go.GetComponent<SocketIOComponent>();
         openRoomSelectButton.GetComponent<Button>().onClick.AddListener(() => OpenRoomSelect());
@@ -40,6 +36,11 @@ public class RoomManager : MonoBehaviour
         socket.On("y", PlayerJoinRoom);
     }
 
+    void Start()
+    {
+        isPlayerCreated = false;
+    }
+    
     IEnumerator PlayerConnect()
     {
         yield return new WaitForSeconds(1);
@@ -64,7 +65,13 @@ public class RoomManager : MonoBehaviour
 
     void PlayerJoinRoom(SocketIOEvent evt)
     {
-        loadingScreen.LoadScene();
+        if (!isPlayerCreated)
+        {
+            Debug.Log("Player Join room");
+            GameObject.Find("NetworkManager").GetComponent<NetworkManager>().StartCoroutine("SetupPlayer");
+            loadingScreen.LoadScene();
+            isPlayerCreated = true;
+        }
     }
 
     void OpenRoomSelect()

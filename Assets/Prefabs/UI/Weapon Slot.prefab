@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 114403091346861582}
   - component: {fileID: 114555633024817622}
   - component: {fileID: 114485916557168018}
+  - component: {fileID: 114692732023329344}
   m_Layer: 5
   m_Name: Weapon Slot
   m_TagString: Untagged
@@ -183,6 +184,20 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114692732023329344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1817106763307676}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 1, b: 0.33793116, a: 0.5}
+  m_EffectDistance: {x: 3, y: 3}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114795004258915934
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -11,7 +11,6 @@ public class Inventory : MonoBehaviour
     [Header("Items")]
     public Transform currentWeapon;
 
-    //Dictionary <KeyCode, Transform>
     Dictionary<KeyCode, Transform> keyItems = new Dictionary<KeyCode, Transform>();
 
     private PlayerUI playerUI;
@@ -36,7 +35,7 @@ public class Inventory : MonoBehaviour
         // If item key is pressed
         foreach (KeyValuePair<KeyCode, Transform> pair in keyItems)
         {
-            if (Input.GetKeyDown(pair.Key) && pair.Value != null)
+            if (Input.GetKeyDown(pair.Key) && pair.Value != null && currentWeapon != pair.Value)
             {
                 ChangeItem(pair.Value);
             }
@@ -60,8 +59,9 @@ public class Inventory : MonoBehaviour
         int idx = item.GetComponent<ItemPickup>().weaponIndex;
         Transform weapon = transform.GetChild(2).GetChild(idx);
         keyItems[key] = weapon;
-        playerUI.SetupWeapon(weapon.gameObject.GetComponent<Weapon>());
         availableSlots--;
+        
+        playerUI.SetupWeapon(weapon.gameObject.GetComponent<Weapon>());
 
         if (availableSlots == 1)
         {
@@ -89,6 +89,7 @@ public class Inventory : MonoBehaviour
 
         currentWeapon = weapon;
         currentWeapon.gameObject.SetActive(true);
+        playerUI.EnableWeapon(currentWeapon.gameObject.GetComponent<Weapon>());
         EmitCurrentWeapon(currentWeapon.GetSiblingIndex());
     }
 

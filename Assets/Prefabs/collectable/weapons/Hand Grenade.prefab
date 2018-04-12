@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 23979817520230848}
   - component: {fileID: 135226318796655992}
   - component: {fileID: 114314606748078714}
-  - component: {fileID: 114543510625096896}
   m_Layer: 0
   m_Name: Hand Grenade
   m_TagString: Hand Grenade
@@ -98,21 +97,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponIndex: 0
   speed: 20
---- !u!114 &114543510625096896
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1620868223236552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 0
-  eraseRenderer: 0
-  originalLayer: 0
-  originalMaterials: []
 --- !u!135 &135226318796655992
 SphereCollider:
   m_ObjectHideFlags: 1

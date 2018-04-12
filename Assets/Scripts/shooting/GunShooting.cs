@@ -36,7 +36,7 @@ public class GunShooting : Shooting
     {
         AnimationCheck();
         //Left click (if automatic fire is false) Input.GetButton("Fire1")
-        if (CrossPlatformInputManager.GetButton("Fire1") && isDisableShooting())
+        if (CrossPlatformInputManager.GetButton("Fire1") && IsDisableShooting())
         {
             playerUI.PlayCrosshair();
             PerformShoot(gun);
@@ -57,7 +57,7 @@ public class GunShooting : Shooting
 
         //R key to reload
         //Not used for projectile guns, grenade or melee guns
-        if (Input.GetKeyDown(KeyCode.R) && !isReloading && inventory.currentAmmo != 0)
+        if (Input.GetKeyDown(KeyCode.R) && IsEnableReloading())
         {
             Reload();
         }
@@ -93,7 +93,12 @@ public class GunShooting : Shooting
         }
     }
 
-    bool isDisableShooting()
+    bool IsEnableReloading()
+    {
+        return !isReloading && inventory.currentAmmo != 0 && !gun.isAmmoFull();
+    }
+
+    bool IsDisableShooting()
     {
         return !isReloading && !outOfAmmo && !isShooting && !isAimShooting && !isRunning && !isJumping;
     }

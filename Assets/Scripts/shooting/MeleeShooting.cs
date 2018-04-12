@@ -1,24 +1,25 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class MeleeShooting : Shooting
 {
     private Melee melee;
-    bool isDrawing;
-    bool isRunning;
-    bool isJumping;
-    bool isMeleeAttacking;
+    private bool isDrawing;
+    private bool isRunning;
+    private bool isJumping;
+    public bool isMeleeAttacking;
 
     //Random number generated to choose 
     //attack animation for melee
-    int randomAttackAnim;
-
+    private int randomAttackAnim;
     void Awake()
     {
-		melee = GetComponent<Melee>();
-        melee.Audios.mainAudioSource.clip = melee.Audios.shootSound;
+        melee = GetComponent<Melee>();
+        // melee.Audios.mainAudioSource.clip = melee.Audios.shootSound;
         //Disable the weapon trail at start
-        melee.Effects.weaponTrail.GetComponent<TrailRenderer>().enabled = false;
+        // melee.Effects.weaponTrail.GetComponent<TrailRenderer>().enabled = false;
     }
 
     void Update()
@@ -27,26 +28,27 @@ public class MeleeShooting : Shooting
         AnimationCheck();
 
         //Left click (if automatic fire is false)
-        if (Input.GetMouseButton(0) && isDisableShooting())
+        if (CrossPlatformInputManager.GetButton("Fire1") && isDisableShooting())
         {
             randomAttackAnim = Random.Range(1, 4);
-
+            Debug.Log("Attack Melee");
             //Play attack animation, if not currently attacking or drawing weapon
             if (!isMeleeAttacking && !isDrawing)
             {
                 anim.SetTrigger("Attack " + randomAttackAnim);
+                EmitShoot();
                 //Play weapon sound
-                melee.Audios.mainAudioSource.Play();
+                // melee.Audios.mainAudioSource.Play();
             }
 
         }
     }
 
-	bool isDisableShooting()
+    bool isDisableShooting()
     {
         return !isRunning && !isJumping;
     }
-
+    
     void AnimationCheck()
     {
         isRunning = anim.GetCurrentAnimatorStateInfo(0).IsName("Run");
@@ -61,14 +63,20 @@ public class MeleeShooting : Shooting
             //If attacking
             isMeleeAttacking = true;
             //Enable the weapon trail, only shown when attacking
-            melee.Effects.weaponTrail.GetComponent<TrailRenderer>().enabled = true;
+            // melee.Effects.weaponTrail.GetComponent<TrailRenderer>().enabled = true;
         }
         else
         {
             //If not attacking
             isMeleeAttacking = false;
             //Disable the weapon trail
-            melee.Effects.weaponTrail.GetComponent<TrailRenderer>().enabled = false;
+            // melee.Effects.weaponTrail.GetComponent<TrailRenderer>().enabled = false;
         }
+    }
+    void EmitShoot()
+    {
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        data["d"] = string.Format("");
+        socket.Emit("9", new JSONObject(data));
     }
 }

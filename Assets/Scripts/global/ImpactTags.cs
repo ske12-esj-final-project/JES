@@ -13,6 +13,7 @@ public class ImpactTags : MonoBehaviour
 	public string concreteImpactTag = "Concrete";
 	public string dirtImpactStaticTag = "Dirt (Static)";
 	public string dirtImpactTag = "Dirt";
+	public string explosiveBarrelImpactTag = "ExplosiveBarrel";
     public string enemyImpactStaticTag = "Enemy (Static)";
     public string enemyImpactTag = "Enemy";
 }

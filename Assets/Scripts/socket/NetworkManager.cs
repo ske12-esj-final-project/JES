@@ -22,8 +22,10 @@ public class NetworkManager : MonoBehaviour
     public GameObject deadPerson, enemyDeadPerson;
 
     private GameObject player = null;
-    private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
-    private static Dictionary<string, GameObject> weapons = new Dictionary<string, GameObject>();
+    private static Dictionary<string, GameObject> players;
+    private static Dictionary<string, GameObject> weapons;
+    private static Dictionary<string, GameObject> ammos;
+    private static GameObject[] weaponMapper;
     private PlayerUI playerUI;
 
     void Awake()
@@ -39,6 +41,10 @@ public class NetworkManager : MonoBehaviour
         socket = go.GetComponent<SocketIOComponent>();
         safeArea = GameObject.Find("Safe Area");
         safeArea.GetComponent<SafeArea>().SetSafeAreaEnabled(false);
+        players = GameManager.GetPlayers();
+        weapons = GameManager.GetWeapons();
+        ammos = GameManager.GetAmmos();
+        weaponMapper = new GameObject[] { Handgun1, Handgun2, Revolver1, Shotgun2, SMG1, SMG2, SMG3, AssaultRifle1, AssaultRifle2, Sniper1 };
         socket.On("3", Spawn);
         socket.On("4", NewEnemySpawn);
         socket.On("7", UpdateEnemyPosition);
@@ -47,15 +53,19 @@ public class NetworkManager : MonoBehaviour
         socket.On("a", UpdatePlayerStatus);
         socket.On("b", UpdateEnemyCurrentWeapon);
         socket.On("c", SpawnWeapon);
+        socket.On("h", SpawnAmmo);
         socket.On("d", RemovePickupWeapon);
+        socket.On("g", RemovePickupAmmo);
         socket.On("x", Countdown);
         socket.On("w", FinishCountdown);
         socket.On("u", GetSafeAreaInfo);
         socket.On("t", WarnSafeArea);
         socket.On("p", EnemyDead);
+        socket.On("m", EnemyLeaveRoom);
         socket.On("n", PlayerDead);
         socket.On("e", CurrentPlayerAlive);
         socket.On("k", PlayerWin);
+        socket.On("o", PlayerKill);
     }
 
     void Update()
@@ -68,6 +78,14 @@ public class NetworkManager : MonoBehaviour
             float z = Mathf.Round(player.transform.position.z * 100f) / 100f;
             data["d"] = string.Format("[{0}, {1}, {2}]", x, y, z);
             socket.Emit("1", new JSONObject(data));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name == "Lobby")
+        {
+            player.GetComponent<FirstPersonController>().SetCursorLock(false);
+            socket.Emit("m");
+            GameManager.ResetRoom();
+            SceneManager.LoadScene("Rooms", LoadSceneMode.Single);
         }
     }
 
@@ -82,7 +100,7 @@ public class NetworkManager : MonoBehaviour
 
     void FinishCountdown(SocketIOEvent evt)
     {
-        ResetRoom();
+        GameManager.ResetRoom();
         SceneManager.LoadScene("Terrain", LoadSceneMode.Single);
         StartCoroutine("StartGame");
     }
@@ -90,14 +108,18 @@ public class NetworkManager : MonoBehaviour
     void UpdatePlayerStatus(SocketIOEvent evt)
     {
         JSONObject jsonData = evt.data.GetField("d");
+        Debug.Log(jsonData);
         float newHealth = float.Parse(jsonData[2].ToString());
         players[jsonData[0].ToString()].GetComponent<PlayerStatus>().SetHealth(newHealth);
+        float playerDegree = players[jsonData[0].ToString()].transform.localEulerAngles.y;
+        float enemyDegree = players[jsonData[1].ToString()].transform.localEulerAngles.y;
+        playerUI.ShowDamageIndicator(playerDegree, enemyDegree);
     }
 
     void Spawn(SocketIOEvent evt)
     {
-        Debug.LogError("Spawn");
         JSONObject jsonData = evt.data.GetField("d");
+        Debug.Log(jsonData);
         PlayerSpawn(jsonData[0]);
         EnemySpawn(jsonData[1]);
     }
@@ -129,9 +151,10 @@ public class NetworkManager : MonoBehaviour
     void EnemyShoot(SocketIOEvent evt)
     {
         JSONObject jsonData = evt.data.GetField("d");
-        for (int i = 0; i < players[jsonData[0].ToString()].transform.GetChild(1).transform.childCount; i++)
+        Transform enemyArm = players[jsonData[0].ToString()].transform.GetChild(1).transform;
+        for (int i = 0; i < enemyArm.childCount; i++)
         {
-            GameObject g = players[jsonData[0].ToString()].transform.GetChild(1).transform.GetChild(i).gameObject;
+            GameObject g = enemyArm.GetChild(i).gameObject;
             if (g.activeInHierarchy)
             {
                 g.GetComponent<EnemyArmController>().Shoot();
@@ -153,6 +176,7 @@ public class NetworkManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         Dictionary<string, string> data = new Dictionary<string, string>();
+        Debug.Log("Setup Player");
         string playerID = GameManager.GetPlayerID();
         data["d"] = string.Format("[@{0}@]", playerID);
         socket.Emit("2", new JSONObject(data));
@@ -213,50 +237,29 @@ public class NetworkManager : MonoBehaviour
     void SpawnWeapon(SocketIOEvent evt)
     {
         JSONObject jsonData = evt.data.GetField("d");
-        Debug.Log(jsonData);
         foreach (var item in jsonData.list)
         {
             float xAxis = float.Parse(item[2].ToString());
             float yAxis = float.Parse(item[3].ToString());
             float zAxis = float.Parse(item[4].ToString());
             GameObject weapon = Handgun1;
-            Debug.Log("Create Weapon");
-            switch (int.Parse(item[1].ToString()))
-            {
-                case 1:
-                    weapon = Instantiate(Handgun1, new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
-                    break;
-                case 2:
-                    weapon = Instantiate(Handgun2, new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
-                    break;
-                case 3:
-                    weapon = Instantiate(Revolver1, new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
-                    break;
-                case 4:
-                    weapon = Instantiate(Shotgun2, new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
-                    break;
-                case 5:
-                    weapon = Instantiate(SMG1, new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
-                    break;
-                case 6:
-                    weapon = Instantiate(SMG2, new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
-                    break;
-                case 7:
-                    weapon = Instantiate(SMG3, new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
-                    break;
-                case 8:
-                    weapon = Instantiate(AssaultRifle1, new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
-                    break;
-                case 9:
-                    weapon = Instantiate(AssaultRifle2, new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
-                    break;
-                case 10:
-                    weapon = Instantiate(Sniper1, new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
-                    break;
-                default:
-                    break;
-            }
+            int weaponID = int.Parse(item[1].ToString());
+            weapon = Instantiate(weaponMapper[weaponID - 1], new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
             RegisterWeapon(item[0].ToString(), weapon);
+        }
+    }
+
+    void SpawnAmmo(SocketIOEvent evt)
+    {
+        JSONObject jsonData = evt.data.GetField("d");
+        foreach (var item in jsonData.list)
+        {
+            float xAxis = float.Parse(item[1].ToString());
+            float yAxis = float.Parse(item[2].ToString());
+            float zAxis = float.Parse(item[3].ToString());
+            Debug.Log("Create Ammo");
+            GameObject ammo = Instantiate(Ammo, new Vector3(xAxis, yAxis, zAxis), Quaternion.identity);
+            RegisterAmmo(item[0].ToString(), ammo);
         }
     }
 
@@ -266,12 +269,26 @@ public class NetworkManager : MonoBehaviour
         _weapon.name = _weaponID;
     }
 
+    void RegisterAmmo(string _ammoID, GameObject _ammo)
+    {
+        ammos.Add(_ammoID, _ammo);
+        _ammo.name = _ammoID;
+    }
+
     void RemovePickupWeapon(SocketIOEvent evt)
     {
         JSONObject jsonData = evt.data.GetField("d");
-        Debug.Log("Remove pickup item: " + jsonData);
+        Debug.Log("Remove pickup weapon: " + jsonData);
         Destroy(weapons[jsonData[0].ToString()]);
         weapons.Remove(jsonData[0].ToString());
+    }
+
+    void RemovePickupAmmo(SocketIOEvent evt)
+    {
+        JSONObject jsonData = evt.data.GetField("d");
+        Debug.Log("Remove pickup ammo: " + jsonData);
+        Destroy(ammos[jsonData[0].ToString()]);
+        ammos.Remove(jsonData[0].ToString());
     }
 
     void GetSafeAreaInfo(SocketIOEvent evt)
@@ -295,19 +312,34 @@ public class NetworkManager : MonoBehaviour
     void WarnSafeArea(SocketIOEvent evt)
     {
         JSONObject jsonData = evt.data.GetField("d");
-
+        GameObject warnSafeArea = GameObject.Find("Warn Safe Area");
+        if (warnSafeArea != null)
+        {
+            warnSafeArea.transform.position = new Vector3(
+                float.Parse(jsonData[0].ToString()),
+                float.Parse(jsonData[1].ToString()),
+                float.Parse(jsonData[2].ToString())
+            );
+            warnSafeArea.transform.localScale = new Vector3(
+                float.Parse(jsonData[3].ToString()),
+                float.Parse(jsonData[4].ToString()),
+                float.Parse(jsonData[5].ToString())
+            );
+        }
     }
 
     void PlayerDead(SocketIOEvent evt)
     {
         JSONObject jsonData = evt.data.GetField("d");
+        Debug.Log(jsonData);
+        GameObject.Find("Minimap").SetActive(false);
+        player.GetComponent<FirstPersonController>().SetCursorLock(false);
         player.SetActive(false);
         GameObject deadPersonObject = Instantiate(deadPerson, new Vector3(
             player.transform.position.x,
             player.transform.position.y - 0.9f,
             player.transform.position.z), Quaternion.identity);
-
-        deadPersonObject.GetComponent<DeadUI>().Setup(jsonData);
+        deadPersonObject.transform.GetChild(0).GetChild(0).GetComponent<DeadUI>().Setup(jsonData);
     }
 
     void EnemyDead(SocketIOEvent evt)
@@ -321,10 +353,17 @@ public class NetworkManager : MonoBehaviour
         Quaternion.identity);
     }
 
+    void EnemyLeaveRoom(SocketIOEvent evt)
+    {
+        JSONObject jsonData = evt.data.GetField("d");
+        string playerID = jsonData[0].ToString();
+        Destroy(players[playerID]);
+        players.Remove(playerID);
+    }
+
     void KillFeed(SocketIOEvent evt)
     {
         JSONObject jsonData = evt.data.GetField("d");
-
     }
 
     IEnumerator MoveSafeArea()
@@ -353,24 +392,15 @@ public class NetworkManager : MonoBehaviour
     void PlayerWin(SocketIOEvent evts)
     {
         JSONObject jsonData = evts.data.GetField("d");
+        Debug.Log(jsonData);
+        player.GetComponent<FirstPersonController>().SetCursorLock(false);
         player.GetComponent<FirstPersonController>().enabled = false;
+        player.GetComponent<Inventory>().currentWeapon.GetComponent<Shooting>().enabled = false;
         playerUI.ShowWinScreen(jsonData);
     }
-
-    public void ResetRoom()
+    void PlayerKill(SocketIOEvent evts)
     {
-        foreach (KeyValuePair<string, GameObject> pair in players)
-        {
-            Destroy(pair.Value);
-        }
-
-        players.Clear();
-
-        foreach (KeyValuePair<string, GameObject> pair in weapons)
-        {
-            Destroy(pair.Value);
-        }
-
-        weapons.Clear();
+        JSONObject jsonData = evts.data.GetField("d");
+        playerUI.SetPlayerKill(jsonData[0].ToString());
     }
 }

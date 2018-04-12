@@ -54,4 +54,9 @@ public class Gun : Weapon
     {
         currentAmmo = ShootSettings.ammo;
     }
+
+    public bool isAmmoFull()
+    {
+        return currentAmmo == ShootSettings.ammo;
+    }
 }
