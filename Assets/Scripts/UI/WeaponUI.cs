@@ -34,4 +34,10 @@ public class WeaponUI : MonoBehaviour
             else mapper[pair.Key].GetComponent<WeaponItemUI>().Disable();
         }
     }
+
+    public void Delete(Weapon weapon)
+    {
+        Destroy(mapper[weapon]);
+        mapper.Remove(weapon);
+    }
 }

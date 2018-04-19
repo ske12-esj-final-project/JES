@@ -205,18 +205,19 @@ public class EnemyArmController : MonoBehaviour
         GameObject go = GameObject.Find("SocketIO");
         socket = go.GetComponent<SocketIOComponent>();
 
-        GameObject global = GameObject.Find("Global");
-        impactTags = global.GetComponent<ImpactTags>();
-        prefabs = global.GetComponent<Prefabs>();
-
-        impactStrategies.Add(impactTags.metalImpactStaticTag, new ImpactMetalStaticStrategy());
-        impactStrategies.Add(impactTags.metalImpactTag, new ImpactMetalStrategy());
-        impactStrategies.Add(impactTags.woodImpactStaticTag, new ImpactWoodStaticStrategy());
-        impactStrategies.Add(impactTags.woodImpactTag, new ImpactWoodStrategy());
-        impactStrategies.Add(impactTags.concreteImpactStaticTag, new ImpactConcreteStaticStrategy());
-        impactStrategies.Add(impactTags.concreteImpactTag, new ImpactConcreteStrategy());
-        impactStrategies.Add(impactTags.dirtImpactStaticTag, new ImpactDirtStaticStrategy());
-        impactStrategies.Add(impactTags.dirtImpactTag, new ImpactDirtStrategy());
+        if (!MeleeSettings.isMeleeWeapon) {
+            GameObject global = GameObject.Find("Global");
+            impactTags = global.GetComponent<ImpactTags>();
+            prefabs = global.GetComponent<Prefabs>();
+            impactStrategies.Add(impactTags.metalImpactStaticTag, new ImpactMetalStaticStrategy());
+            impactStrategies.Add(impactTags.metalImpactTag, new ImpactMetalStrategy());
+            impactStrategies.Add(impactTags.woodImpactStaticTag, new ImpactWoodStaticStrategy());
+            impactStrategies.Add(impactTags.woodImpactTag, new ImpactWoodStrategy());
+            impactStrategies.Add(impactTags.concreteImpactStaticTag, new ImpactConcreteStaticStrategy());
+            impactStrategies.Add(impactTags.concreteImpactTag, new ImpactConcreteStrategy());
+            impactStrategies.Add(impactTags.dirtImpactStaticTag, new ImpactDirtStaticStrategy());
+            impactStrategies.Add(impactTags.dirtImpactTag, new ImpactDirtStrategy());
+        }
     }
 
     void Awake()
@@ -247,7 +248,7 @@ public class EnemyArmController : MonoBehaviour
         {
             AudioClips.mainAudioSource.clip = AudioClips.shootSound;
             //Disable the weapon trail at start
-            Components.weaponTrail.GetComponent<TrailRenderer>().enabled = false;
+            // Components.weaponTrail.GetComponent<TrailRenderer>().enabled = false;
         }
 
         //Prevent from throwing grenade right at start/load
@@ -434,7 +435,6 @@ public class EnemyArmController : MonoBehaviour
     //Shoot
     public void Shoot()
     {
-        Debug.Log("Log enemy shoot");
         //Play shoot animation
         if (!anim.GetBool("isAiming"))
         {
@@ -443,6 +443,17 @@ public class EnemyArmController : MonoBehaviour
         else
         {
             anim.SetTrigger("Shoot");
+        }
+        Debug.Log("MeleeSettings.isMeleeWeapon"+MeleeSettings.isMeleeWeapon);
+        if(MeleeSettings.isMeleeWeapon){
+             randomAttackAnim = Random.Range(1, 4);
+            Debug.Log("Attack Melee");
+            //Play attack animation, if not currently attacking or drawing weapon
+            if (!isMeleeAttacking && !isDrawing)
+            {
+                anim.SetTrigger("Attack " + randomAttackAnim);
+            }
+            return;
         }
 
         //Remove 1 bullet
@@ -518,12 +529,12 @@ public class EnemyArmController : MonoBehaviour
                 // If the raycast hit the tag "Player"
                 if (hit.transform.tag == "Player")
                 {
-                    Dictionary<string, string> data = new Dictionary<string, string>();
-                    float x = Mathf.Round(hit.transform.position.x * 100f) / 100f;
-                    float y = Mathf.Round(hit.transform.position.y * 100f) / 100f;
-                    float z = Mathf.Round(hit.transform.position.z * 100f) / 100f;
-                    data["d"] = string.Format("[{0}, {1}, {2}]", x, y, z);
-                    socket.Emit("0", new JSONObject(data));
+                    // Dictionary<string, string> data = new Dictionary<string, string>();
+                    // float x = Mathf.Round(hit.transform.position.x * 100f) / 100f;
+                    // float y = Mathf.Round(hit.transform.position.y * 100f) / 100f;
+                    // float z = Mathf.Round(hit.transform.position.z * 100f) / 100f;
+                    // data["d"] = string.Format("[{0}, {1}, {2}]", x, y, z);
+                    // socket.Emit("0", new JSONObject(data));
                 }
 
                 // If a rigibody is hit, add bullet force to it

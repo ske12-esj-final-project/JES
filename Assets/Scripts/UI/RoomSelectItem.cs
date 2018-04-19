@@ -30,7 +30,7 @@ public class RoomSelectItem : MonoBehaviour
     void JoinRoom(string roomID)
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
-        string playerID = GameManager.GetPlayerID();
+        string playerID = PlayerPrefs.GetString("playerID");
         string s = string.Format("[@{0}@, {1}]", playerID, RemoveDbq(roomID));
         data["d"] = s;
         socket.Emit("y", new JSONObject(data));

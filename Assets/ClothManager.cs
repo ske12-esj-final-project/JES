@@ -6,41 +6,23 @@ using UnityEngine.UI;
 public class ClothManager : MonoBehaviour
 {
     public Texture[] clothTextureList;
-    public Button previousButton;
-    public Button nextButton;
-	public Button confirmChangeButton;
-    private int index = 0;
+    public Texture[] armTextureList;
+    public int clothIndex;
 
-    // Use this for initialization
-    void Start()
+    public void ChangeCloth(int index)
     {
-        previousButton.GetComponent<Button>().onClick.AddListener(() => PreviousCloth());
-        nextButton.GetComponent<Button>().onClick.AddListener(() => NextCloth());
-		confirmChangeButton.GetComponent<Button>().onClick.AddListener(() => ConfirmChangeCloth());
-    }
+        clothIndex = index;
+        Transform model = transform.GetChild(0).GetChild(0);
+        model.GetComponent<Renderer>().material.mainTexture = clothTextureList[index];
+        Transform arms = transform.GetChild(1);
 
-    void PreviousCloth()
-    {
-        if (index > 0) index--;
-        else index = clothTextureList.Length - 1;
-        ChangeCloth();
+        if (arms.name == "Arm")
+        {
+            for (int i = 0; i < arms.childCount; i++)
+            {
+                Transform arm = arms.GetChild(i).GetChild(1);
+                arm.GetComponent<Renderer>().material.mainTexture = armTextureList[index];
+            }
+        }
     }
-
-    void NextCloth()
-    {
-        if (index < clothTextureList.Length - 1) index++;
-        else index = 0;
-        ChangeCloth();
-    }
-
-    void ChangeCloth()
-    {
-        GetComponent<Renderer>().material.mainTexture = clothTextureList[index];
-    }
-
-    void ConfirmChangeCloth()
-    {
-		GameManager.SetClothIndex(index);
-    }
-
 }

@@ -6,6 +6,7 @@ using SocketIO;
 public class ItemPickup : MonoBehaviour
 {
     public int weaponIndex;
+    public int capacity;
     private Inventory inventory;
     private GameObject player;
     public float speed = 20f;
@@ -26,20 +27,23 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Emit Pickup");
-            player = GameObject.FindGameObjectWithTag("Player");
+            player = GameManager.GetThisPlayer();
             inventory = player.GetComponent<Inventory>();
-            if (gameObject.tag != "Ammo" && !inventory.isFull())
+            
+            if (gameObject.CompareTag("MedKit")) socket.Emit("d", GetEmitPickupData());
+
+            else if (gameObject.CompareTag("Ammo"))
+            {
+                socket.Emit("g", GetEmitPickupData());
+                inventory.currentAmmo += 10;
+                player.GetComponent<PlayerUI>().SetInventoryAmmoText(inventory.currentAmmo);
+            }
+
+            else if (!inventory.isFull())
             {
                 transform.gameObject.SetActive(false);
                 inventory.AddItem(transform);
                 socket.Emit("d", GetEmitPickupData());
-            }
-
-            else
-            {
-                socket.Emit("g", GetEmitPickupData());
-                inventory.currentAmmo += 10;
             }
         }
     }
@@ -50,5 +54,10 @@ public class ItemPickup : MonoBehaviour
         string s = string.Format("[@{0}@]", id);
         data["d"] = s;
         return new JSONObject(data);
+    }
+
+    public void Setup(int _capacity)
+    {
+        capacity = _capacity;
     }
 }

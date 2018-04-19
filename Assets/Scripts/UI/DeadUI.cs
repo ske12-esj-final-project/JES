@@ -21,7 +21,7 @@ public class DeadUI : MonoBehaviour
 
     public void Setup(JSONObject jsonData)
     {
-        usernameText.text = jsonData[0].ToString();
+        usernameText.text = jsonData[0].ToString().Replace("\"", "");
         rankText.text = string.Format("Rank #{0}", jsonData[1]);
         killText.text = string.Format("Kill {0}", jsonData[2]);
         rewardText.text = string.Format("Reward {0}", jsonData[3]);

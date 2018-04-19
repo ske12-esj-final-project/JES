@@ -50,11 +50,6 @@ public class Gun : Weapon
 
     public Transform casingPrefab;
 
-    void Start()
-    {
-        currentAmmo = ShootSettings.ammo;
-    }
-
     public bool isAmmoFull()
     {
         return currentAmmo == ShootSettings.ammo;

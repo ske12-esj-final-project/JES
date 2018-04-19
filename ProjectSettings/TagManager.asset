@@ -28,6 +28,7 @@ TagManager:
   - Ammo
   - Wood
   - ExplosiveBarrel
+  - MedKit
   layers:
   - Default
   - TransparentFX

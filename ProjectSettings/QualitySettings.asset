@@ -61,7 +61,9 @@ QualitySettings:
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - iPhone
+    - Android
   - serializedVersion: 2
     name: Medium
     pixelLightCount: 1
@@ -89,7 +91,10 @@ QualitySettings:
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - iPhone
+    - Android
+    - WebGL
   - serializedVersion: 2
     name: High
     pixelLightCount: 2
@@ -117,7 +122,10 @@ QualitySettings:
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - iPhone
+    - Android
+    - WebGL
   - serializedVersion: 2
     name: Very High
     pixelLightCount: 3
@@ -145,7 +153,10 @@ QualitySettings:
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - iPhone
+    - Android
+    - WebGL
   - serializedVersion: 2
     name: Ultra
     pixelLightCount: 4
@@ -173,5 +184,12 @@ QualitySettings:
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
-  m_PerPlatformDefaultQuality: {}
+    excludedTargetPlatforms:
+    - iPhone
+    - Android
+    - WebGL
+  m_PerPlatformDefaultQuality:
+    Android: 0
+    Standalone: 0
+    WebGL: 0
+    iPhone: 0

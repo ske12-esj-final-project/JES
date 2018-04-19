@@ -26,6 +26,7 @@ public class MenuManager : MonoBehaviour
     public InputField passwordLoginInput;
     public Button submitLoginButton;
     public LoadingScreenControl loadingScreen;
+    public GameObject disconnectUI;
 
     private Regex usernameRegex = new Regex("^[a-zA-Z0-9_.-]*$");
     private Regex passwordRegex = new Regex("^[a-zA-Z0-9_.-]*$");
@@ -47,10 +48,13 @@ public class MenuManager : MonoBehaviour
         submitRegisterButton.interactable = false;
 
         usernameRegisterInput.onValueChanged.AddListener(delegate { ValidateRegisterForm(); });
-
         passwordRegisterInput.onValueChanged.AddListener(delegate { ValidateRegisterForm(); });
-
         emailRegisterInput.onValueChanged.AddListener(delegate { ValidateRegisterForm(); });
+
+        if (GameManager.GetState() == GameManager.State.Disconnect)
+        {
+            disconnectUI.SetActive(true);
+        }
     }
 
     void OnClickLogin()
@@ -206,6 +210,9 @@ public class MenuManager : MonoBehaviour
             string res = System.Text.Encoding.UTF8.GetString(request.downloadHandler.data);
             JSONObject response = new JSONObject(res);
             PlayerPrefs.SetString("token", response[1].ToString().Replace("\"", ""));
+            if (response[2] != null) {
+                GameManager.SetClothIndex(int.Parse(response[2].ToString()));
+            }
             loadingScreen.LoadScene();
         }
     }

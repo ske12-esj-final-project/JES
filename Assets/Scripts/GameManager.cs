@@ -5,8 +5,9 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    private static string playerID = null;
-    private static bool isConnected = false;
+    public enum State { Start, Connect, Disconnect };
+    public static GameObject player;
+    private static State state = State.Start;
     private static int clothIndex = 0;
     private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     private static Dictionary<string, GameObject> weapons = new Dictionary<string, GameObject>();
@@ -23,24 +24,29 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public static void SetPlayerID(string _playerID)
+    public static void SetState(State _state)
     {
-        playerID = _playerID;
+        state = _state;
     }
 
-    public static string GetPlayerID()
+    public static State GetState()
     {
-        return playerID;
+        return state;
     }
 
-    public static void SetPlayerConnected(bool _isConnected)
+    public static void SetPlayer(GameObject _player)
     {
-        isConnected = _isConnected;
+        player = _player;
     }
 
-    public static bool isPlayerConnected()
+    public static GameObject GetThisPlayer()
     {
-        return isConnected;
+        return player;
+    }
+
+    public static GameObject GetPlayer(string _playerID)
+    {
+        return players[_playerID];
     }
 
     public static void SetClothIndex(int _index)
@@ -68,12 +74,7 @@ public class GameManager : MonoBehaviour
         return ammos;
     }
 
-    public static GameObject getPlayer(string ID)
-    {
-        return players[ID];
-    }
-
-    public static void ResetRoom()
+    public static void Reset()
     {
         foreach (KeyValuePair<string, GameObject> pair in players)
         {

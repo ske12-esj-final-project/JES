@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
     private PlayerUI playerUI;
     public int currentAmmo;
     public int availableSlots = 2;
+    private Transform bareHand;
 
     void Start()
     {
@@ -27,7 +28,9 @@ public class Inventory : MonoBehaviour
         GameObject go = GameObject.Find("SocketIO");
         socket = go.GetComponent<SocketIOComponent>();
 
-        currentWeapon = transform.GetChild(2).GetChild(0);
+        bareHand = transform.GetChild(1).GetChild(0);
+
+        currentWeapon = bareHand;
     }
 
     void Update()
@@ -40,11 +43,18 @@ public class Inventory : MonoBehaviour
                 ChangeItem(pair.Value);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.G) && currentWeapon != bareHand)
+        {
+            DiscardCurrentItem();
+        }
     }
 
     public void AddItem(Transform item)
     {
         KeyCode key = KeyCode.None;
+        ItemPickup pickup = item.GetComponent<ItemPickup>();
+
         foreach (KeyValuePair<KeyCode, Transform> pair in keyItems)
         {
             if (pair.Value == null)
@@ -56,17 +66,55 @@ public class Inventory : MonoBehaviour
 
         if (key == KeyCode.None) return;
 
-        int idx = item.GetComponent<ItemPickup>().weaponIndex;
-        Transform weapon = transform.GetChild(2).GetChild(idx);
+        int idx = pickup.weaponIndex;
+        Transform weapon = transform.GetChild(1).GetChild(idx);
+        
+        if (weapon == currentWeapon) {
+            currentAmmo += 10;    
+        }
+
+        weapon.GetComponent<Weapon>().Setup(pickup.transform.name, pickup.capacity);
         keyItems[key] = weapon;
         availableSlots--;
-        
+
         playerUI.SetupWeapon(weapon.gameObject.GetComponent<Weapon>());
 
         if (availableSlots == 1)
         {
             ChangeItem(weapon);
         }
+    }
+
+    void DiscardCurrentItem()
+    {
+        playerUI.DeleteWeapon(currentWeapon.gameObject.GetComponent<Weapon>());
+        EmitDiscardWeapon();
+        currentWeapon.gameObject.SetActive(false);
+        KeyCode key = KeyCode.None;
+        KeyCode replacedKey = KeyCode.None;
+        
+        foreach (KeyValuePair<KeyCode, Transform> pair in keyItems)
+        {
+            if (pair.Value == currentWeapon)
+            {
+                key = pair.Key;
+                availableSlots++;
+                break;
+            }
+        }
+
+        foreach (KeyValuePair<KeyCode, Transform> pair in keyItems)
+        {
+            if (pair.Key != key && pair.Value != null)
+            {
+                replacedKey = pair.Key;
+                break;
+            }
+        }
+
+        keyItems[key] = null;
+        if (availableSlots == 2) ChangeItem(bareHand);
+        else if (availableSlots == 1) ChangeItem(keyItems[replacedKey]);
     }
 
     public bool isFull()
@@ -89,8 +137,24 @@ public class Inventory : MonoBehaviour
 
         currentWeapon = weapon;
         currentWeapon.gameObject.SetActive(true);
-        playerUI.EnableWeapon(currentWeapon.gameObject.GetComponent<Weapon>());
+
+        if (currentWeapon != bareHand)
+        {
+            playerUI.EnableWeapon(currentWeapon.gameObject.GetComponent<Weapon>());
+        }
+
         EmitCurrentWeapon(currentWeapon.GetSiblingIndex());
+    }
+    public void DropItemsWhenDie()
+    {
+
+        foreach (KeyValuePair<KeyCode, Transform> pair in keyItems)
+        {
+            if (pair.Value == null)
+            {
+                break;
+            }
+        }
     }
 
     void EmitCurrentWeapon(int index)
@@ -100,5 +164,17 @@ public class Inventory : MonoBehaviour
         string s = string.Format("[@{0}@, {1}]", player, index);
         data["d"] = s;
         socket.Emit("b", new JSONObject(data));
+    }
+
+    void EmitDiscardWeapon()
+    {
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        Weapon wpn = currentWeapon.GetComponent<Weapon>();
+        string ID = wpn.ID.Replace("\"", "");
+        float distance = 1;
+        Vector3 pos = transform.position + transform.forward * distance;
+        string s = string.Format("[@{0}@,{1},{2},{3},{4}]", ID, wpn.currentAmmo, pos.x, pos.y, pos.z);
+        data["d"] = s;
+        socket.Emit("i", new JSONObject(data));
     }
 }

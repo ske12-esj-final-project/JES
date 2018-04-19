@@ -8,7 +8,12 @@ using SocketIO;
 public class RoomManager : MonoBehaviour
 {
     public GameObject roomSelectPanel;
+    public GameObject clothUI;
     public Button openRoomSelectButton;
+    public Button clothButton;
+    public GameObject startButton;
+    public GameObject backbutton;
+    public GameObject submitbutton;
     public LoadingScreenControl loadingScreen;
     private SocketIOComponent socket;
     public GameObject gameManager;
@@ -16,28 +21,26 @@ public class RoomManager : MonoBehaviour
     private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     private bool isPlayerCreated = false;
 
-    void Awake()
+    void Start()
     {
-        if (GameManager.instance == null)
-        {
-            Instantiate(gameManager);
-        }
         GameObject go = GameObject.Find("SocketIO");
         socket = go.GetComponent<SocketIOComponent>();
-        openRoomSelectButton.GetComponent<Button>().onClick.AddListener(() => OpenRoomSelect());
+        socket.On("z", AddPlayerToGame);
+        socket.On("y", PlayerJoinRoom);
 
-        if (!GameManager.isPlayerConnected())
+        openRoomSelectButton.GetComponent<Button>().onClick.AddListener(() => OpenRoomSelect());
+        clothButton.GetComponent<Button>().onClick.AddListener(() => OpenClothUI());
+        backbutton.GetComponent<Button>().onClick.AddListener(() => CloseClothUI());
+        submitbutton.GetComponent<Button>().onClick.AddListener(() => CloseClothUI());
+
+        if (GameManager.GetState() != GameManager.State.Connect)
         {
-            GameManager.SetPlayerConnected(true);
+            GameManager.SetState(GameManager.State.Connect);
             StartCoroutine("PlayerConnect");
         }
 
-        socket.On("z", AddPlayerToGame);
-        socket.On("y", PlayerJoinRoom);
-    }
-
-    void Start()
-    {
+        GameObject enemy = GameObject.Find("Enemies");
+        enemy.GetComponent<ClothManager>().ChangeCloth(GameManager.GetClothIndex());
         isPlayerCreated = false;
     }
     
@@ -60,7 +63,7 @@ public class RoomManager : MonoBehaviour
     void RegisterPlayer(string _playerID)
     {
         players.Add(_playerID, null);
-        GameManager.SetPlayerID(_playerID);
+        PlayerPrefs.SetString("playerID", _playerID);
     }
 
     void PlayerJoinRoom(SocketIOEvent evt)
@@ -76,6 +79,22 @@ public class RoomManager : MonoBehaviour
 
     void OpenRoomSelect()
     {
+        clothUI.SetActive(false);
         roomSelectPanel.SetActive(true);
+    }
+
+    void OpenClothUI()
+    {
+        roomSelectPanel.SetActive(false);
+        clothButton.gameObject.SetActive(false);
+        clothUI.SetActive(true);
+        startButton.SetActive(false);
+    }
+    void CloseClothUI()
+    {
+        roomSelectPanel.SetActive(false);
+        clothButton.gameObject.SetActive(true);
+        clothUI.SetActive(false);
+        startButton.SetActive(true);
     }
 }

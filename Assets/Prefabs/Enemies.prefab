@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 136758310174791940}
   - component: {fileID: 114836166875129776}
   - component: {fileID: 114326154658509720}
+  - component: {fileID: 114502249824247020}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Enemy
@@ -38,7 +39,7 @@ Transform:
   - {fileID: 4500822006977746}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 135.679, z: 0}
 --- !u!54 &5441592
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -4162,6 +4163,7 @@ GameObject:
   - component: {fileID: 95495360530804278}
   - component: {fileID: 82527651689228370}
   - component: {fileID: 114059201094711056}
+  - component: {fileID: 114150099799174560}
   m_Layer: 0
   m_Name: arms@barhand
   m_TagString: Untagged
@@ -7592,7 +7594,7 @@ Transform:
   - {fileID: 4269004761997842}
   - {fileID: 4984069111416068}
   m_Father: {fileID: 4625688270888970}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4276375227493722
 Transform:
@@ -7763,7 +7765,7 @@ Transform:
   m_LocalScale: {x: 0.024999974, y: 0.024999974, z: 0.024999974}
   m_Children: []
   m_Father: {fileID: 4625688270888970}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4299493400081840
 Transform:
@@ -8037,9 +8039,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4488465844579276}
   - {fileID: 4624161178153906}
   - {fileID: 4595828413164656}
+  - {fileID: 4488465844579276}
   m_Father: {fileID: 4826666959546230}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8576,7 +8578,7 @@ Transform:
   m_LocalScale: {x: 0.024999972, y: 0.024999972, z: 0.024999972}
   m_Children: []
   m_Father: {fileID: 4365489838256860}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4490801317191888
 Transform:
@@ -9233,7 +9235,7 @@ Transform:
   m_LocalScale: {x: 0.024999976, y: 0.024999978, z: 0.024999978}
   m_Children: []
   m_Father: {fileID: 4365489838256860}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4596492469568022
 Transform:
@@ -9388,7 +9390,7 @@ Transform:
   - {fileID: 4848611028883898}
   - {fileID: 4564818688922536}
   m_Father: {fileID: 4365489838256860}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4625688270888970
 Transform:
@@ -9400,9 +9402,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4297686598572370}
   - {fileID: 4275460285091548}
   - {fileID: 4735766624627232}
+  - {fileID: 4297686598572370}
   m_Father: {fileID: 4826666959546230}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9957,7 +9959,7 @@ Transform:
   m_LocalScale: {x: 0.024999976, y: 0.024999978, z: 0.024999978}
   m_Children: []
   m_Father: {fileID: 4625688270888970}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4737252544202396
 Transform:
@@ -14553,6 +14555,8 @@ MonoBehaviour:
   defaultFov: 75
   mainAudioSource: {fileID: 82761999773531824}
   aimSound: {fileID: 8300000, guid: c8862557ba4c0b64ba678de7ff1538ed, type: 3}
+  isSnipper: 0
+  zoomTexture: {fileID: 0}
 --- !u!114 &114010243809471576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14728,6 +14732,8 @@ MonoBehaviour:
   defaultFov: 75
   mainAudioSource: {fileID: 82080612986219438}
   aimSound: {fileID: 8300000, guid: c8862557ba4c0b64ba678de7ff1538ed, type: 3}
+  isSnipper: 0
+  zoomTexture: {fileID: 0}
 --- !u!114 &114059201094711056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14825,6 +14831,8 @@ MonoBehaviour:
   defaultFov: 75
   mainAudioSource: {fileID: 82884304249260438}
   aimSound: {fileID: 8300000, guid: c8862557ba4c0b64ba678de7ff1538ed, type: 3}
+  isSnipper: 0
+  zoomTexture: {fileID: 0}
 --- !u!114 &114123551028339590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14846,6 +14854,8 @@ MonoBehaviour:
   defaultFov: 75
   mainAudioSource: {fileID: 82917917989400326}
   aimSound: {fileID: 8300000, guid: c8862557ba4c0b64ba678de7ff1538ed, type: 3}
+  isSnipper: 0
+  zoomTexture: {fileID: 0}
 --- !u!114 &114127947447535888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14950,6 +14960,74 @@ MonoBehaviour:
   prefabs: {fileID: 0}
   Impact: {fileID: 0}
   playerUI: {fileID: 0}
+--- !u!114 &114150099799174560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1637124018197496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d34585bd482cb408e9ec51abf6b36a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentAmmo: 0
+  MeleeSettings:
+    isMeleeWeapon: 1
+  ShootSettings:
+    ammo: 0
+    automaticFire: 0
+    fireRate: 0
+    bulletDistance: 0
+    bulletForce: 0
+    useShotgunSpread: 0
+    spreadSize: 2
+    pellets: 30
+    projectileWeapon: 0
+    grenadeLauncher: 0
+    projectile: {fileID: 0}
+    currentProjectile: {fileID: 0}
+    reloadTime: 0
+    grenade: 0
+    throwDelay: 0.15
+    hideGrenadeTimer: 0.75
+    showGrenadeTimer: 0.75
+    flamethrower: 0
+    minigun: 0
+  ReloadSettings:
+    casingOnReload: 0
+    casingDelay: 0
+    hasBulletInMag: 0
+    bulletInMag: []
+    enableBulletTimer: 1
+    usesInsert: 0
+  Components:
+    useMuzzleflash: 0
+    sideMuzzle: {fileID: 1944167813032816}
+    topMuzzle: {fileID: 1437539435385450}
+    frontMuzzle: {fileID: 1047012796375532}
+    muzzleflashSideSprites:
+    - {fileID: 21300002, guid: f145762126630dc4a9626fec5c90628a, type: 3}
+    - {fileID: 21300004, guid: f145762126630dc4a9626fec5c90628a, type: 3}
+    useLightFlash: 0
+    lightFlash: {fileID: 108279275561584254}
+    playSmoke: 0
+    smokeParticles: {fileID: 198983282966237234}
+    playSparks: 0
+    sparkParticles: {fileID: 0}
+    playTracers: 0
+    bulletTracerParticles: {fileID: 198166090246249006}
+    weaponTrail: {fileID: 0}
+  casingPrefab: {fileID: 400000, guid: f322e8abf875f82469081e376adc5f3e, type: 2}
+  Spawnpoints:
+    casingSpawnPoints:
+    - {fileID: 4179658065582298}
+    bulletSpawnPoint: {fileID: 4207213534013058}
+  AudioClips:
+    mainAudioSource: {fileID: 82688349799877386}
+    shootSound: {fileID: 8300000, guid: 38b8b4ab5aeedc8488227cfcdeac6977, type: 3}
+    reloadSound: {fileID: 8300000, guid: 1fa9533cb356b9144bf2035a95400229, type: 3}
+  noSwitch: 0
 --- !u!114 &114150835013255054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15107,6 +15185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Shotgun
+  ID: 
   Damage: 120
   currentAmmo: 0
   weaponImage: {fileID: 0}
@@ -15247,6 +15326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Snake
+  ID: 
   Damage: 50
   currentAmmo: 0
   weaponImage: {fileID: 0}
@@ -15307,6 +15387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Hand Grenade
+  ID: 
   Damage: 100
   currentAmmo: 1
   weaponImage: {fileID: 0}
@@ -15511,6 +15592,8 @@ MonoBehaviour:
   defaultFov: 75
   mainAudioSource: {fileID: 82773642811179128}
   aimSound: {fileID: 8300000, guid: c8862557ba4c0b64ba678de7ff1538ed, type: 3}
+  isSnipper: 0
+  zoomTexture: {fileID: 0}
 --- !u!114 &114475666119847012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15523,6 +15606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
+  isEnemy: 1
   cameraRotationLimit: 85
 --- !u!114 &114484950821122574
 MonoBehaviour:
@@ -15545,6 +15629,124 @@ MonoBehaviour:
   defaultFov: 75
   mainAudioSource: {fileID: 82649339188812530}
   aimSound: {fileID: 8300000, guid: c8862557ba4c0b64ba678de7ff1538ed, type: 3}
+  isSnipper: 0
+  zoomTexture: {fileID: 0}
+--- !u!114 &114502249824247020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bf794e9710834d4481d68caeda6a3e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clothTextureList:
+  - {fileID: 2800000, guid: 9506c885cd9fa144e9142a03fbd99dd6, type: 3}
+  - {fileID: 2800000, guid: 5d6795382a9cf8e45a68ba4346c66efd, type: 3}
+  - {fileID: 2800000, guid: 12e281a5b44dcce4393d675312775b10, type: 3}
+  - {fileID: 2800000, guid: 3b5da37f4a0c7dc4cb0d29868a1bdaa3, type: 3}
+  - {fileID: 2800000, guid: aa86d3318ad6db44aaf8dfab18732408, type: 3}
+  - {fileID: 2800000, guid: d7e48aae8277dc14db4fa367e49611a5, type: 3}
+  - {fileID: 2800000, guid: 002f8de457afeef49b3d5456f61586ed, type: 3}
+  - {fileID: 2800000, guid: 9aac84faf67d0ca4b9d6efbd4d27a849, type: 3}
+  - {fileID: 2800000, guid: fe1471620c6980246afa8143d135e9fc, type: 3}
+  - {fileID: 2800000, guid: 1dd55d24cdc80804ab58a368af8f948a, type: 3}
+  - {fileID: 2800000, guid: 942049c2a00aa9f4fb72263681e65d59, type: 3}
+  - {fileID: 2800000, guid: aa906dd0e1eb4b54d9b1054f3c9a3ee3, type: 3}
+  - {fileID: 2800000, guid: 42087df9921804c40a4d57603a90423f, type: 3}
+  - {fileID: 2800000, guid: 6afa063c876df5049ab25c4580268d58, type: 3}
+  - {fileID: 2800000, guid: aae008583869b5e4cbfeb60ffb1bbb06, type: 3}
+  - {fileID: 2800000, guid: ae5848b0c9fff6c4a87e3bbe87b1e119, type: 3}
+  - {fileID: 2800000, guid: b40275627efde744b980f72921706196, type: 3}
+  - {fileID: 2800000, guid: 653bf99aa73b8fc4c804114eb97296e8, type: 3}
+  - {fileID: 2800000, guid: 56fb492cd1e02de42afa6d4d27217fbb, type: 3}
+  - {fileID: 2800000, guid: ad37eed7e2fab2b4ca337b3eec6a5482, type: 3}
+  - {fileID: 2800000, guid: 4e5a30740afeb264ea1960fff96aa77d, type: 3}
+  - {fileID: 2800000, guid: 839a11493c5640044ab643f1ce2de205, type: 3}
+  - {fileID: 2800000, guid: 6c951aea9c31545468bc8adae9ea797e, type: 3}
+  - {fileID: 2800000, guid: 2c1895a0e9be6c940a08a6f3d0eccb02, type: 3}
+  - {fileID: 2800000, guid: a80cf9e2068cbec40920fa182e3e71cc, type: 3}
+  - {fileID: 2800000, guid: 4c5f6b5e46bfa8347b93220d7f3bc218, type: 3}
+  - {fileID: 2800000, guid: 44fc82b9748ee8247aaac835a994a79a, type: 3}
+  - {fileID: 2800000, guid: ac7fc91501adbf245badec7c5b7ba18f, type: 3}
+  - {fileID: 2800000, guid: be907f43491cbfb488b6f7d8b273fb69, type: 3}
+  - {fileID: 2800000, guid: b900139b444721d4eb7ea7bf1311c4f3, type: 3}
+  - {fileID: 2800000, guid: f72802b0c3813f14a9437c5fd5fff864, type: 3}
+  - {fileID: 2800000, guid: 83e551f364e958b408ff48105c07bafa, type: 3}
+  - {fileID: 2800000, guid: 2a00cda12562dd6428cb653c989c5a1a, type: 3}
+  - {fileID: 2800000, guid: b9f75fdc2694ac7458604ef72375ed98, type: 3}
+  - {fileID: 2800000, guid: 4d01ddb5ce5068b40bd1596eedd140c1, type: 3}
+  - {fileID: 2800000, guid: 6aef07d31b6692641ac1ba0eab9c1695, type: 3}
+  - {fileID: 2800000, guid: 9d815fed57ec7fe40a9d89cd5a708ea8, type: 3}
+  - {fileID: 2800000, guid: a97b265ea09bf7c45b1ad1dc247ab689, type: 3}
+  - {fileID: 2800000, guid: 06e19e958dfa37642ae5619bedf35920, type: 3}
+  - {fileID: 2800000, guid: 34c21c6baaecb8444b8822f48829be73, type: 3}
+  - {fileID: 2800000, guid: 1b75ad2f288918542ab76925ddac1673, type: 3}
+  - {fileID: 2800000, guid: 61f73c456c1ccb94ca20e3c256d2549d, type: 3}
+  - {fileID: 2800000, guid: 8ed9d918b0a5d92488969866c67f056d, type: 3}
+  - {fileID: 2800000, guid: a5eca13d78104aa4eaf67ee21d4d3c53, type: 3}
+  - {fileID: 2800000, guid: 832116409f813204b81ad996cd41c761, type: 3}
+  - {fileID: 2800000, guid: 0dd8460e46017c14bbe4901157143f16, type: 3}
+  - {fileID: 2800000, guid: e701fd40ca180064591dfdf29bda4489, type: 3}
+  - {fileID: 2800000, guid: 25fa5c7e9f60aa9479a4adbc14548d21, type: 3}
+  - {fileID: 2800000, guid: 28ef5d1be2c3e0f469599dcb97b6ca17, type: 3}
+  - {fileID: 2800000, guid: 0000894bdf64f1b468a3c75f66de34ab, type: 3}
+  - {fileID: 2800000, guid: dd192c6007229f84ca5ebc4ef9236d19, type: 3}
+  armTextureList:
+  - {fileID: 2800000, guid: b7a8db4428322f84d9cd17a04bf3f2ab, type: 3}
+  - {fileID: 2800000, guid: 2649505973c98c54cb43090fbb56d4c9, type: 3}
+  - {fileID: 2800000, guid: 2649505973c98c54cb43090fbb56d4c9, type: 3}
+  - {fileID: 2800000, guid: 5e7e26e1b6b5f6f489c61cd6f69ca52c, type: 3}
+  - {fileID: 2800000, guid: 3c5d137dc4957c946884f6e943377f83, type: 3}
+  - {fileID: 2800000, guid: e7a9a915c513a6b449bb273c6bfca113, type: 3}
+  - {fileID: 2800000, guid: 1ce8072e92e93de459eb1b1cf2e4a053, type: 3}
+  - {fileID: 2800000, guid: 51f544317a6e6944b81da9c96120ff27, type: 3}
+  - {fileID: 2800000, guid: 32052523093ac1a4b950b63282fd654d, type: 3}
+  - {fileID: 2800000, guid: 1e0a2c9404e7fb14082fbaae8b38615c, type: 3}
+  - {fileID: 2800000, guid: 0f732cd92df7d724796dc1670d76feec, type: 3}
+  - {fileID: 2800000, guid: 42ae3c38a6cf77844aca6af023e8e1fe, type: 3}
+  - {fileID: 2800000, guid: 4dc761118dbb606408606ef7fe49b038, type: 3}
+  - {fileID: 2800000, guid: 2b4d32c8026a6f345a4679aeebabf5f9, type: 3}
+  - {fileID: 2800000, guid: f34f97c0589b4304bac1516f6d8ffcd0, type: 3}
+  - {fileID: 2800000, guid: 20c6755425ee3aa4680c0c44f5ade0d6, type: 3}
+  - {fileID: 2800000, guid: 495b7a6fc6f5927499180abe8ab5fbbe, type: 3}
+  - {fileID: 2800000, guid: 06c041630fa52c34a81b77f671df1c69, type: 3}
+  - {fileID: 2800000, guid: d005cf0f60e4cb346846db560c306fa3, type: 3}
+  - {fileID: 2800000, guid: b63fc8eb3cb95b046a662d133d0fdf60, type: 3}
+  - {fileID: 2800000, guid: f93f558e7dfd14a469a57f479c96ad06, type: 3}
+  - {fileID: 2800000, guid: 11114f2efa3540e43ad109f4705a55b7, type: 3}
+  - {fileID: 2800000, guid: 7344a0c2e02c500438a3c7d06fb35197, type: 3}
+  - {fileID: 2800000, guid: 9e9d2428603aa814bad35c8a7ea537e2, type: 3}
+  - {fileID: 2800000, guid: b35f2d9b7cef8034c8f1c2e96b2e1aff, type: 3}
+  - {fileID: 2800000, guid: 0a2ba93cc05853b4abb7174eb2fed4cb, type: 3}
+  - {fileID: 2800000, guid: 8157d22eb83444b4cbe064445dec799f, type: 3}
+  - {fileID: 2800000, guid: d01b0b7a1bf547343854dde018631a54, type: 3}
+  - {fileID: 2800000, guid: a0ebcc973e0c37f4387fe0de09b1b865, type: 3}
+  - {fileID: 2800000, guid: efab7c76b069974479a695c1ae054c49, type: 3}
+  - {fileID: 2800000, guid: e2a5295770e58d1419d5dda4b6ef8d0b, type: 3}
+  - {fileID: 2800000, guid: 518ad7a9519e33a4d8ef1de9d7a9d99e, type: 3}
+  - {fileID: 2800000, guid: a77b506fbbff1384fb8b3efc233ae5ed, type: 3}
+  - {fileID: 2800000, guid: 874f068618bf95149b819eb911849ec8, type: 3}
+  - {fileID: 2800000, guid: 425d4e65cff4bed4cbbe4e64cf700c1f, type: 3}
+  - {fileID: 2800000, guid: eb627255ab2575a479dd09d3aa4ed48a, type: 3}
+  - {fileID: 2800000, guid: 243396bdcc84d714b9ecb9e01c694e3e, type: 3}
+  - {fileID: 2800000, guid: 05dc8f0b946d39840a406422934ec9ec, type: 3}
+  - {fileID: 2800000, guid: 770d7be9c31fe3b4eadb5be0e5ae8714, type: 3}
+  - {fileID: 2800000, guid: cbb7fcbc6b0a7db47b6be1882159665e, type: 3}
+  - {fileID: 2800000, guid: 88df8d13bb897684aab29921389533f9, type: 3}
+  - {fileID: 2800000, guid: 1a557bfd26adfc1498b428253d688cd6, type: 3}
+  - {fileID: 2800000, guid: 455fa96821d514946b8d751c8384beb5, type: 3}
+  - {fileID: 2800000, guid: f325cf8594b5949428987719f42c8457, type: 3}
+  - {fileID: 2800000, guid: ce2aebf57fe363a419b3fb560730490a, type: 3}
+  - {fileID: 2800000, guid: 6ff49a8cc77f1b94396d050f17631e70, type: 3}
+  - {fileID: 2800000, guid: 9c2bca9c4b430d444922a9d3731feffd, type: 3}
+  - {fileID: 2800000, guid: da60dae751e79b04ca970d20ca63c85a, type: 3}
+  - {fileID: 2800000, guid: 8fac6ae14d25e304d980158dcdab1982, type: 3}
+  - {fileID: 2800000, guid: 7fef1c501cefb444ea2019e2449b33c4, type: 3}
+  - {fileID: 2800000, guid: 73c3206053ee73c4fa477f6c532b4052, type: 3}
+  clothIndex: 0
 --- !u!114 &114520438441331742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15584,6 +15786,8 @@ MonoBehaviour:
   defaultFov: 75
   mainAudioSource: {fileID: 82354611383310910}
   aimSound: {fileID: 8300000, guid: c8862557ba4c0b64ba678de7ff1538ed, type: 3}
+  isSnipper: 0
+  zoomTexture: {fileID: 0}
 --- !u!114 &114529045439272456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15747,6 +15951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Poice SMG
+  ID: 
   Damage: 32
   currentAmmo: 0
   weaponImage: {fileID: 0}
@@ -15817,6 +16022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Slick SMG
+  ID: 
   Damage: 35
   currentAmmo: 0
   weaponImage: {fileID: 0}
@@ -15986,6 +16192,8 @@ MonoBehaviour:
   defaultFov: 75
   mainAudioSource: {fileID: 82688349799877386}
   aimSound: {fileID: 8300000, guid: c8862557ba4c0b64ba678de7ff1538ed, type: 3}
+  isSnipper: 0
+  zoomTexture: {fileID: 0}
 --- !u!114 &114636357995983916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -15998,6 +16206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Assault Rifle 2
+  ID: 
   Damage: 35
   currentAmmo: 0
   weaponImage: {fileID: 0}
@@ -16063,6 +16272,8 @@ MonoBehaviour:
   defaultFov: 75
   mainAudioSource: {fileID: 82434305021627178}
   aimSound: {fileID: 8300000, guid: c8862557ba4c0b64ba678de7ff1538ed, type: 3}
+  isSnipper: 0
+  zoomTexture: {fileID: 0}
 --- !u!114 &114655671916521688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16075,6 +16286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Glick
+  ID: 
   Damage: 25
   currentAmmo: 0
   weaponImage: {fileID: 0}
@@ -16131,6 +16343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Baretta
+  ID: 
   Damage: 35
   currentAmmo: 0
   weaponImage: {fileID: 0}
@@ -16255,6 +16468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Mini SMG
+  ID: 
   Damage: 30
   currentAmmo: 0
   weaponImage: {fileID: 0}
@@ -16320,6 +16534,8 @@ MonoBehaviour:
   defaultFov: 75
   mainAudioSource: {fileID: 82601536824372712}
   aimSound: {fileID: 8300000, guid: c8862557ba4c0b64ba678de7ff1538ed, type: 3}
+  isSnipper: 0
+  zoomTexture: {fileID: 0}
 --- !u!114 &114772057742070506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16432,6 +16648,8 @@ MonoBehaviour:
   defaultFov: 75
   mainAudioSource: {fileID: 82274045002686728}
   aimSound: {fileID: 8300000, guid: c8862557ba4c0b64ba678de7ff1538ed, type: 3}
+  isSnipper: 0
+  zoomTexture: {fileID: 0}
 --- !u!114 &114836166875129776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16458,6 +16676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Grenade Launcher
+  ID: 
   Damage: 80
   currentAmmo: 0
   weaponImage: {fileID: 0}
@@ -16512,6 +16731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Axe 1
+  ID: 
   Damage: 50
   currentAmmo: 0
   weaponImage: {fileID: 0}
@@ -16564,6 +16784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Assault Rifle 1
+  ID: 
   Damage: 38
   currentAmmo: 0
   weaponImage: {fileID: 0}
@@ -16620,6 +16841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Sniper Rifle
+  ID: 
   Damage: 90
   currentAmmo: 0
   weaponImage: {fileID: 21300036, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}

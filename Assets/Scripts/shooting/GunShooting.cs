@@ -20,6 +20,8 @@ public class GunShooting : Shooting
     float maxRecoilX = 20f;
     float maxRecoilY;
     float lastFired;
+    int currentAnimBullet = 0;
+    int bulletBeforeAnimation = 6;
 
     void Awake()
     {
@@ -42,7 +44,7 @@ public class GunShooting : Shooting
             PerformShoot(gun);
         }
 
-        MakeRecoil();
+        // MakeRecoil();
 
         //Right click hold to aim
         //Disable aiming for melee weapons and grenade
@@ -177,6 +179,7 @@ public class GunShooting : Shooting
 
     void LaunchNormalShot()
     {
+        // anim.SetInteger("bullet", gun.currentAmmo);
         //Raycast bullet
         RaycastHit hit;
 
@@ -205,32 +208,32 @@ public class GunShooting : Shooting
     void LaunchShotgunShots()
     {
         Shotgun shotgun = (Shotgun)gun;
+        anim.SetInteger("bullet", gun.currentAmmo);
         //Send out shotgun raycast with set amount of pellets
         for (int i = 0; i < shotgun.pellets; ++i)
         {
-
-            float randomRadius = Random.Range
-                (0, shotgun.spreadSize);
-            float randomAngle = Random.Range
-                (0, 2 * Mathf.PI);
+            Debug.Log("Plallet Shot");
+            float randomRadius = Random.Range(0, shotgun.spreadSize);
+            float randomAngle = Random.Range(0, 2 * Mathf.PI);
 
             //Raycast direction
-            Vector3 direction = new Vector3(
-                randomRadius * Mathf.Cos(randomAngle),
-                randomRadius * Mathf.Sin(randomAngle),
-                15);
+            Vector3 direction = new Vector3(randomRadius * Mathf.Cos(randomAngle), randomRadius * Mathf.Sin(randomAngle), 15);
 
             direction = transform.TransformDirection(direction.normalized);
-
+            Debug.Log(direction);
             RaycastHit hit;
-            if (Physics.Raycast(shotgun.Spawnpoints.bulletSpawnPoint.transform.position, direction,
-                                 out hit, shotgun.ShootSettings.bulletDistance))
+            if (Physics.Raycast(shotgun.Spawnpoints.bulletSpawnPoint.transform.position, direction, out hit, shotgun.ShootSettings.bulletDistance))
             {
-
                 // If a rigibody is hit, add bullet force to it
                 if (hit.rigidbody != null)
                 {
-                    Impact.impactStrategies[hit.transform.tag].makeImpact(prefabs, hit);
+                    if (hit.transform.tag == "Enemy")
+                    {
+                        Impact.impactStrategies["Enemy (Static)"].makeImpact(prefabs, hit);
+                        EmitEnemyHit(hit.transform.name.ToString(), gun.Damage);
+                    } else {
+                        Impact.impactStrategies[hit.transform.tag].makeImpact(prefabs, hit);
+                    }
                 }
             }
         }
@@ -318,6 +321,7 @@ public class GunShooting : Shooting
         isRunning = anim.GetCurrentAnimatorStateInfo(0).IsName("Run");
         isJumping = anim.GetCurrentAnimatorStateInfo(0).IsName("Jump");
         isDrawing = anim.GetCurrentAnimatorStateInfo(0).IsName("Draw");
+        currentAnimBullet = anim.GetInteger("bullet");
 
         //Check if finished reloading when using "insert" style reload
         //Used for bolt action sniper and pump shotgun for example
@@ -349,9 +353,23 @@ public class GunShooting : Shooting
                     int refillAmmo = FindRefillAmmo();
                     inventory.currentAmmo -= refillAmmo;
                     RefillAmmo(refillAmmo);
+                    playerUI.SetInventoryAmmoText(inventory.currentAmmo);
                 }
 
                 isReloading = false;
+            } else {
+                if (isReloading == true && bulletBeforeAnimation != currentAnimBullet ) {
+                    Debug.Log("Reloading : " + bulletBeforeAnimation + " " + currentAnimBullet);
+                    if (inventory.currentAmmo > 0) {
+                        bulletBeforeAnimation = currentAnimBullet;
+                        if(currentAnimBullet != gun.ShootSettings.ammo) {
+                            inventory.currentAmmo--;
+                            playerUI.SetInventoryAmmoText(inventory.currentAmmo);
+                        }
+                        RefillAmmo(currentAnimBullet);
+                    }
+                    else return;
+                }
             }
         }
     }
@@ -370,3 +388,4 @@ public class GunShooting : Shooting
         socket.Emit("0", new JSONObject(data));
     }
 }
+

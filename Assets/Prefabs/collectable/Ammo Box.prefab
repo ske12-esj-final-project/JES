@@ -865,6 +865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponIndex: 0
+  capacity: 0
   speed: 20
 --- !u!114 &114786192654639878
 MonoBehaviour:

@@ -8,6 +8,10 @@ public class PlayerMotor : MonoBehaviour {
 	[SerializeField]
 	private Camera camera;
 
+	private Animator anim;
+
+	public bool isEnemy;
+
 	[SerializeField]
 	private float cameraRotationLimit = 85f;
 
@@ -26,8 +30,16 @@ public class PlayerMotor : MonoBehaviour {
 
 	private Rigidbody rb;
 
+	Vector3 lastPos;
+	float threshold = 0.01f;
+	bool isWalk = false;
+	float Speed_f  = 0f;
+
 	void Start() {
 		rb = GetComponent<Rigidbody> ();
+		anim = transform.GetChild(0).GetComponent<Animator>();
+		lastPos = transform.position;
+		enemyPosition = transform.position;
 	}
 
 	public void Move(Vector3 _velocity) {
@@ -63,6 +75,34 @@ public class PlayerMotor : MonoBehaviour {
 		}
 	}
 
+
+	void Update()
+	{
+		Vector3 from = transform.position;		
+		 Vector3 offset = transform.position - lastPos; 
+		 Vector3 nv = new Vector3(decimal2Place(transform.position.x),0,decimal2Place(transform.position.z));
+		 Vector3 lv = new Vector3(decimal2Place(enemyPosition.x),0,decimal2Place(enemyPosition.z));
+		if ( Vector3.Distance(nv,lv) > threshold ){ 
+			// Debug.Log("check is "+anim.GetCurrentAnimatorStateInfo(0).IsName("Walk_Static") );
+			if(!isWalk && !anim.GetCurrentAnimatorStateInfo(0).IsName("Walk_Static")){
+				// Debug.Log("move");
+				isWalk = true;
+				anim.SetBool("isWalk",isWalk);
+			}
+
+		} 
+		else {
+			// anim.GetCurrentAnimatorStateInfo(0).IsName("Walk_Static") 
+			if(isWalk){
+				isWalk = false;
+				anim.SetBool("isWalk",isWalk);
+				anim.SetFloat("Speed_f", 0.0f);
+				// Debug.Log("idle");
+			}
+
+		} 		
+	}
+
 	void PerformMovement() {
 		if ( velocity != Vector3.zero) {
 			rb.MovePosition (rb.position + velocity * Time.fixedDeltaTime);
@@ -73,13 +113,42 @@ public class PlayerMotor : MonoBehaviour {
 		}
 	}
 
+	float decimal2Place(float num){
+		return float.Parse(num.ToString("0.##") );
+	}
+
 	void PerformEnemyMovement() {
 		Vector3 from = transform.position;
 		Vector3 to = enemyPosition;
-		// Debug.Log(to);
 		if (to != Vector3.zero) {
 			transform.position = Vector3.Lerp (from, to, 0.1f);
 		}
+		
+		//  Vector3 offset = transform.position - lastPos; 
+		//  Vector3 nv = new Vector3(decimal2Place(transform.position.x),0,decimal2Place(transform.position.z));
+		//  Vector3 lv = new Vector3(decimal2Place(enemyPosition.x),0,decimal2Place(enemyPosition.z));
+
+		// //  Debug.Log("distance "+Vector3.Distance(nv,lv));
+		// // Debug.Log( anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") );
+		// if ( Vector3.Distance(nv,lv) >= threshold ){ 
+		// 	Debug.Log("check is "+anim.GetCurrentAnimatorStateInfo(0).IsName("Walk_Static") );
+		// 	if(!isWalk){
+		// 		anim.SetBool("isWalk",true);
+		// 		Debug.Log("move");
+		// 		isWalk = true;
+		// 	}
+
+		// } 
+		// else {
+		// 	// anim.GetCurrentAnimatorStateInfo(0).IsName("Walk_Static") 
+		// 	if(isWalk){
+		// 		isWalk = false;
+		// 		anim.SetBool("isWalk",isWalk);
+		// 		// anim.SetFloat("Speed_f", 0.0f);
+		// 		Debug.Log("idle");
+		// 	}
+
+		// } 
 	}
 
 	void PerformRotation() {

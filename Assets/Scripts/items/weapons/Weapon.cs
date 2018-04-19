@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class Weapon : MonoBehaviour
 {
     public string Name;
+    public string ID;
     public int Damage;
-
     public int currentAmmo;
     public Sprite weaponImage;
 
@@ -46,4 +46,10 @@ public class Weapon : MonoBehaviour
     }
 
     public audios Audios;
+
+    public void Setup(string weaponID, int capacity)
+    {
+        ID = weaponID;
+        currentAmmo = capacity;
+    }
 }

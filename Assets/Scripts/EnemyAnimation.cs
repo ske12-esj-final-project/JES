@@ -16,7 +16,7 @@ public class EnemyAnimation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (currentPosition != this.transform.position) {
-			anim.Play("Walk_Static", -1, 0f);
+			// anim.Play("Walk_Static", -1, 0f);
 			currentPosition = this.transform.position;
 		}
 	}

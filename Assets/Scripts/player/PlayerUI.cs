@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityStandardAssets.CrossPlatformInput;
@@ -23,21 +25,75 @@ public class PlayerUI : MonoBehaviour
     public GameObject compassBackground;
     public GameObject damageIndicatorImage;
     public Text currentKillText;
+    public Text inventoryAmmoText;
     private float delay = 4.0f; //This implies a delay of 2 seconds.
     public bool isMinimapOpen = false;
-
+    public GameObject arrowRight;
+    public GameObject arrowLeft;
+    public Dictionary<float, GameObject> indicators = new Dictionary<float, GameObject>();
+    private GameObject newArrowLeft;
+    private GameObject newArrowRight;
+    public Text warnSafeAreaTime;
     void Start()
     {
         countdownText.text = "";
         secondText.text = "";
+        inventoryAmmoText.text = "0";
         safeAreaOverlay.SetActive(false);
-        minimapCamera = GameObject.Find("Minimap Camera").GetComponent<Camera>();
+        
+        if (GameObject.Find("Minimap Camera") != null)
+        {
+            minimapCamera = GameObject.Find("Minimap Camera").GetComponent<Camera>();
+        }
     }
+
     private void Update()
     {
         if (CrossPlatformInputManager.GetButtonDown("Map"))
         {
             OpenMinimap();
+        }
+        float currentPlayerAngle = transform.localEulerAngles.y;
+        bool isIndicatorOutLeft = false;
+        bool isIndicatorOutRight = false;
+        foreach (KeyValuePair<float, GameObject> attachStat in indicators)
+        {
+            //Now you can access the key and value both separately from this attachStat as:
+            float indicatorPosition = CalculateIndicatorPosition(currentPlayerAngle, attachStat.Key);
+            attachStat.Value.GetComponent<RectTransform>().anchoredPosition = new Vector3(indicatorPosition, 0, 0);
+            if (indicatorPosition < -200)
+            {
+                isIndicatorOutLeft = true;
+            }
+            if (indicatorPosition > 200)
+            {
+                isIndicatorOutRight = true;
+            }
+        }
+        // Debug.Log("Indicator Pos: " + isIndicatorOutLeft + " " + isIndicatorOutRight);
+        CreateArrow(isIndicatorOutLeft, isIndicatorOutRight);
+    }
+    void CreateArrow(bool isIndicatorOutLeft, bool isIndicatorOutRight)
+    {
+        if (isIndicatorOutLeft && newArrowLeft == null)
+        {
+            newArrowLeft = Instantiate(arrowLeft, compassBackground.transform.position, Quaternion.identity);
+            newArrowLeft.transform.SetParent(compassBackground.transform);
+            newArrowLeft.GetComponent<RectTransform>().anchoredPosition = new Vector3(-190, 0, 0);
+        }
+        else if (!isIndicatorOutLeft)
+        {
+            Destroy(newArrowLeft);
+        }
+        if (isIndicatorOutRight && newArrowRight == null)
+        {
+            newArrowRight = Instantiate(arrowRight, compassBackground.transform.position, Quaternion.identity);
+            newArrowRight.transform.SetParent(compassBackground.transform);
+            newArrowRight.GetComponent<RectTransform>().anchoredPosition = new Vector3(190, 0, 0);
+        }
+        else if (!isIndicatorOutRight)
+        {
+            Destroy(newArrowRight);
         }
     }
     public void SetPlayerStatus(string text)
@@ -48,6 +104,11 @@ public class PlayerUI : MonoBehaviour
     public void EnableWeapon(Weapon weapon)
     {
         weaponListUI.GetComponent<WeaponUI>().Enable(weapon);
+    }
+
+    public void DeleteWeapon(Weapon weapon)
+    {
+        weaponListUI.GetComponent<WeaponUI>().Delete(weapon);
     }
 
     public void SetupWeapon(Weapon weapon)
@@ -79,7 +140,7 @@ public class PlayerUI : MonoBehaviour
     {
         safeAreaOverlay.SetActive(false);
     }
-    
+
     public void SetCurrentPlayerAlive(string number)
     {
         currentAmountPlayerAlive.text = number + " Left";
@@ -87,11 +148,14 @@ public class PlayerUI : MonoBehaviour
 
     public void OpenMinimap()
     {
-        if (!isMinimapOpen) {
+        if (!isMinimapOpen)
+        {
             minimap.SetActive(false);
             bigMinimap.SetActive(true);
             isMinimapOpen = true;
-        } else {
+        }
+        else
+        {
             minimap.SetActive(true);
             bigMinimap.SetActive(false);
             isMinimapOpen = false;
@@ -105,7 +169,7 @@ public class PlayerUI : MonoBehaviour
 
     public void ShowWinScreen(JSONObject json)
     {
-        nameWinScreen.text = json[0].ToString();
+        nameWinScreen.text = json[0].ToString().Replace("\"", "");
         killWinScreen.text = "Kill " + json[1].ToString();
         scoreWinScreen.text = "Reward " + json[2].ToString();
         winScreen.SetActive(true);
@@ -113,23 +177,68 @@ public class PlayerUI : MonoBehaviour
 
     public void ShowDamageIndicator(float playerDegree, float enemyDegree)
     {
+        float indicatorPosition = CalculateIndicatorPosition(playerDegree, enemyDegree);
+        var damageIndicator = Instantiate(damageIndicatorImage, compassBackground.transform.position, Quaternion.identity);
+        damageIndicator.transform.SetParent(compassBackground.transform);
+        damageIndicator.GetComponent<RectTransform>().anchoredPosition = new Vector3(indicatorPosition, 0, 0);
+        StartCoroutine(SetIndicatorOnPlayer(enemyDegree, damageIndicator));
+    }
+    float CalculateIndicatorPosition(float playerDegree, float enemyDegree)
+    {
         float indicatorPosition = 0;
-        float degreeDiff = playerDegree - (180 - enemyDegree);
-        if (degreeDiff < 0) degreeDiff += 360;
-        if(degreeDiff < 180) {
-            indicatorPosition = (degreeDiff/180) * 1000;
-        } else {
-            indicatorPosition = ((360 - degreeDiff)/180) * - 1000;
+        float newEnemyDegree = enemyDegree - 180;
+        if (newEnemyDegree < 0) newEnemyDegree += 360;
+        float degreeDiff = newEnemyDegree - playerDegree;
+        float degreeUnit = degreeDiff / 360;
+        if (degreeUnit > 1)
+        {
+            degreeUnit -= 1;
         }
-        Debug.Log("Player Degree: " + playerDegree);
-        Debug.Log("Enemy Degree: " + enemyDegree);
-        Debug.Log(indicatorPosition);
-        var damageIndicator = Instantiate (damageIndicatorImage, compassBackground.transform.position , Quaternion.identity);
-        damageIndicator.transform.parent = compassBackground.transform;
-        damageIndicator.GetComponent<RectTransform> ().anchoredPosition = new Vector3(indicatorPosition, 0, 0);
+        else if (degreeUnit < -1)
+        {
+            degreeUnit += 1;
+        }
+        if (degreeUnit > 0)
+        {
+            if (degreeUnit < 0.5)
+            {
+                indicatorPosition = degreeUnit * 1000;
+            }
+            else
+            {
+                indicatorPosition = (1.0f - degreeUnit) * 1000;
+            }
+        }
+        else if (degreeUnit < 0)
+        {
+            if (degreeUnit > -0.5)
+            {
+                indicatorPosition = degreeUnit * 1000;
+            }
+            else
+            {
+                indicatorPosition = (1.0f - degreeUnit) * 1000;
+            }
+        }
+        return indicatorPosition;
+    }
+    IEnumerator SetIndicatorOnPlayer(float enemyDegree, GameObject damageIndicator)
+    {
+        indicators.Add(enemyDegree, damageIndicator);
+        yield return new WaitForSeconds(15);
+        indicators.Remove(enemyDegree);
+        Destroy(damageIndicator);
     }
     public void SetPlayerKill(string killNum)
     {
         currentKillText.text = killNum + " Kill";
+    }
+    public void SetWarnSafeAreaTime(string time)
+    {
+        warnSafeAreaTime.text = time + " s";
+    }
+    public void SetInventoryAmmoText(int _ammo)
+    {
+        inventoryAmmoText.text = _ammo.ToString();
     }
 }

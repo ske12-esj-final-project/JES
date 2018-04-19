@@ -23,10 +23,7 @@ public class BackButton : MonoBehaviour
     public void BackToMenu()
     {
         socket.Emit("m");
-        SafeArea safeArea = GameObject.Find("Safe Area").GetComponent<SafeArea>();
-        safeArea.SetSafeAreaEnabled(false);
-        safeArea.ResetSafeArea();
-        GameManager.ResetRoom();
+        GameManager.Reset();
         SceneManager.LoadScene("Rooms", LoadSceneMode.Single);
     }
 }

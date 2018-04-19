@@ -15,6 +15,8 @@ public class Compass : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// float posX = (player.transform.localEulerAngles.y / 360)
+		// compassImage.transform.position = new Vector3()
 		compassImage.GetComponent<RawImage>	().uvRect = new Rect(player.transform.localEulerAngles.y / 360, 0, 1, 1);
 	}
 }

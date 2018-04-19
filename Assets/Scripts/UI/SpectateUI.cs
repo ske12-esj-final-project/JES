@@ -37,7 +37,7 @@ public class SpectateUI : MonoBehaviour
     void Spectate()
     {
         SetCurrentPlayerCamera(false);
-        GameObject player = GameManager.getPlayer(playerList[index]);
+        GameObject player = GameManager.GetPlayer(playerList[index]);
         if (player != null) currentPlayer = player;
         SetCurrentPlayerCamera(true);
     }

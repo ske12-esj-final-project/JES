@@ -19,19 +19,15 @@ public class PlayerStatus : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerUI = player.GetComponent<PlayerUI>();
-        vignette = player.transform.GetChild(2).GetComponent<VignetteAndChromaticAberration>();
+        vignette = player.transform.GetChild(1).GetComponent<VignetteAndChromaticAberration>();
     }
 
     public void SetHealth(float newHealth)
     {
+        float recentHealth = health;
         health = newHealth;
         playerUI.SetPlayerHealth(health / playerMaxHealth);
-        if (health > 0 && !isPlayingEffect) StartCoroutine("PlayEffectHit");
-    }
-
-    public void SetPlayerID(string newPlayerID)
-    {
-        playerID = newPlayerID;
+        if (health > 0 && !isPlayingEffect && recentHealth > newHealth) StartCoroutine("PlayEffectHit");
     }
 
     IEnumerator PlayEffectHit()
