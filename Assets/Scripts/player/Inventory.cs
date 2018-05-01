@@ -69,8 +69,14 @@ public class Inventory : MonoBehaviour
         int idx = pickup.weaponIndex;
         Transform weapon = transform.GetChild(1).GetChild(idx);
         
-        if (weapon == currentWeapon) {
-            currentAmmo += 10;    
+        foreach (KeyValuePair<KeyCode, Transform> pair in keyItems)
+        {
+            if (pair.Value == weapon)
+            {
+                currentAmmo += 10;
+                playerUI.SetInventoryAmmoText(currentAmmo);
+                return;
+            }
         }
 
         weapon.GetComponent<Weapon>().Setup(pickup.transform.name, pickup.capacity);
@@ -171,7 +177,7 @@ public class Inventory : MonoBehaviour
         Dictionary<string, string> data = new Dictionary<string, string>();
         Weapon wpn = currentWeapon.GetComponent<Weapon>();
         string ID = wpn.ID.Replace("\"", "");
-        float distance = 1;
+        float distance = 2;
         Vector3 pos = transform.position + transform.forward * distance;
         string s = string.Format("[@{0}@,{1},{2},{3},{4}]", ID, wpn.currentAmmo, pos.x, pos.y, pos.z);
         data["d"] = s;

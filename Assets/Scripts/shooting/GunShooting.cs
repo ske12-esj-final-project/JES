@@ -179,7 +179,6 @@ public class GunShooting : Shooting
 
     void LaunchNormalShot()
     {
-        // anim.SetInteger("bullet", gun.currentAmmo);
         //Raycast bullet
         RaycastHit hit;
 
@@ -212,7 +211,6 @@ public class GunShooting : Shooting
         //Send out shotgun raycast with set amount of pellets
         for (int i = 0; i < shotgun.pellets; ++i)
         {
-            Debug.Log("Plallet Shot");
             float randomRadius = Random.Range(0, shotgun.spreadSize);
             float randomAngle = Random.Range(0, 2 * Mathf.PI);
 
@@ -220,7 +218,6 @@ public class GunShooting : Shooting
             Vector3 direction = new Vector3(randomRadius * Mathf.Cos(randomAngle), randomRadius * Mathf.Sin(randomAngle), 15);
 
             direction = transform.TransformDirection(direction.normalized);
-            Debug.Log(direction);
             RaycastHit hit;
             if (Physics.Raycast(shotgun.Spawnpoints.bulletSpawnPoint.transform.position, direction, out hit, shotgun.ShootSettings.bulletDistance))
             {
@@ -359,7 +356,6 @@ public class GunShooting : Shooting
                 isReloading = false;
             } else {
                 if (isReloading == true && bulletBeforeAnimation != currentAnimBullet ) {
-                    Debug.Log("Reloading : " + bulletBeforeAnimation + " " + currentAnimBullet);
                     if (inventory.currentAmmo > 0) {
                         bulletBeforeAnimation = currentAnimBullet;
                         if(currentAnimBullet != gun.ShootSettings.ammo) {
@@ -373,12 +369,14 @@ public class GunShooting : Shooting
             }
         }
     }
+
     void EmitShoot()
     {
         Dictionary<string, string> data = new Dictionary<string, string>();
         data["d"] = string.Format("");
         socket.Emit("9", new JSONObject(data));
     }
+    
     void EmitEnemyHit(string playerId, float damage)
     {
         Dictionary<string, string> data = new Dictionary<string, string>();

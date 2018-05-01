@@ -9,11 +9,16 @@ public class RoomManager : MonoBehaviour
 {
     public GameObject roomSelectPanel;
     public GameObject clothUI;
+    public GameObject titleUI;
+    public GameObject tutorialUI;
+    public Text nameText;
+    public Text scoreText;
     public Button openRoomSelectButton;
+    public Button closeRoomSelectButton;
     public Button clothButton;
+    public Button tutorialButton;
+    public Button quitButton;
     public GameObject startButton;
-    public GameObject backbutton;
-    public GameObject submitbutton;
     public LoadingScreenControl loadingScreen;
     private SocketIOComponent socket;
     public GameObject gameManager;
@@ -29,9 +34,10 @@ public class RoomManager : MonoBehaviour
         socket.On("y", PlayerJoinRoom);
 
         openRoomSelectButton.GetComponent<Button>().onClick.AddListener(() => OpenRoomSelect());
+        closeRoomSelectButton.GetComponent<Button>().onClick.AddListener(() => CloseRoomSelect());
         clothButton.GetComponent<Button>().onClick.AddListener(() => OpenClothUI());
-        backbutton.GetComponent<Button>().onClick.AddListener(() => CloseClothUI());
-        submitbutton.GetComponent<Button>().onClick.AddListener(() => CloseClothUI());
+        tutorialButton.GetComponent<Button>().onClick.AddListener(() => OpenTutorialUI());
+        quitButton.GetComponent<Button>().onClick.AddListener(() => QuitGame());
 
         if (GameManager.GetState() != GameManager.State.Connect)
         {
@@ -42,6 +48,9 @@ public class RoomManager : MonoBehaviour
         GameObject enemy = GameObject.Find("Enemies");
         enemy.GetComponent<ClothManager>().ChangeCloth(GameManager.GetClothIndex());
         isPlayerCreated = false;
+
+        nameText.text = GameManager.GetUsername();
+        scoreText.text = GameManager.GetScore().ToString();
     }
     
     IEnumerator PlayerConnect()
@@ -79,22 +88,53 @@ public class RoomManager : MonoBehaviour
 
     void OpenRoomSelect()
     {
+        titleUI.SetActive(false);
         clothUI.SetActive(false);
         roomSelectPanel.SetActive(true);
+        quitButton.gameObject.SetActive(false);
+    }
+
+    void CloseRoomSelect()
+    {
+        titleUI.SetActive(true);
+        roomSelectPanel.SetActive(false);
+        quitButton.gameObject.SetActive(true);
     }
 
     void OpenClothUI()
     {
         roomSelectPanel.SetActive(false);
         clothButton.gameObject.SetActive(false);
+        tutorialButton.gameObject.SetActive(false);
         clothUI.SetActive(true);
         startButton.SetActive(false);
+        quitButton.gameObject.SetActive(false);
     }
-    void CloseClothUI()
+
+    public void CloseClothUI()
     {
         roomSelectPanel.SetActive(false);
+        tutorialButton.gameObject.SetActive(true);
         clothButton.gameObject.SetActive(true);
         clothUI.SetActive(false);
         startButton.SetActive(true);
+        quitButton.gameObject.SetActive(true);
+    }
+
+    void OpenTutorialUI()
+    {
+        tutorialUI.SetActive(true);
+        tutorialButton.gameObject.SetActive(false);
+    }
+
+    public void CloseTutorialUI()
+    {
+        tutorialUI.SetActive(false);
+        tutorialButton.gameObject.SetActive(true);
+    }
+
+    void QuitGame()
+    {
+        Application.Quit();
     }
 }

@@ -131,6 +131,12 @@ public class PlayerUI : MonoBehaviour
         secondText.text = second.ToString();
     }
 
+    public void DisableCountdownText()
+    {
+        countdownText.text = "";
+        secondText.text = "";
+    }
+
     public void ShowSafeAreaOverlay()
     {
         safeAreaOverlay.SetActive(true);
@@ -172,6 +178,7 @@ public class PlayerUI : MonoBehaviour
         nameWinScreen.text = json[0].ToString().Replace("\"", "");
         killWinScreen.text = "Kill " + json[1].ToString();
         scoreWinScreen.text = "Reward " + json[2].ToString();
+        GameManager.SetScore(GameManager.GetScore() + int.Parse(json[2].ToString()));
         winScreen.SetActive(true);
     }
 

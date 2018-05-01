@@ -15,7 +15,6 @@ public class MenuManager : MonoBehaviour
     public Text registerErrorText;
     public Button loginButton;
     public Button registerButton;
-    public Button guestButton;
     public Button registerBackButton;
     public Button loginBackButton;
     public InputField usernameRegisterInput;
@@ -28,6 +27,8 @@ public class MenuManager : MonoBehaviour
     public LoadingScreenControl loadingScreen;
     public GameObject disconnectUI;
 
+    private enum State { Login, Register };
+
     private Regex usernameRegex = new Regex("^[a-zA-Z0-9_.-]*$");
     private Regex passwordRegex = new Regex("^[a-zA-Z0-9_.-]*$");
     private Regex emailRegex = new Regex(@"^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$");
@@ -36,7 +37,6 @@ public class MenuManager : MonoBehaviour
     {
         loginButton.GetComponent<Button>().onClick.AddListener(OnClickLogin);
         registerButton.GetComponent<Button>().onClick.AddListener(OnClickRegister);
-        guestButton.GetComponent<Button>().onClick.AddListener(OnClickGuest);
         submitRegisterButton.GetComponent<Button>().onClick.AddListener(OnClickSubmitRegister);
         submitLoginButton.GetComponent<Button>().onClick.AddListener(OnClickSubmitLogin);
         registerBackButton.GetComponent<Button>().onClick.AddListener(OnClickBack);
@@ -53,8 +53,15 @@ public class MenuManager : MonoBehaviour
 
         if (GameManager.GetState() == GameManager.State.Disconnect)
         {
-            disconnectUI.SetActive(true);
+            StartCoroutine("DisplayDisconnectUI");
         }
+    }
+
+    IEnumerator DisplayDisconnectUI()
+    {
+        disconnectUI.SetActive(true);
+        yield return new WaitForSeconds(3);
+        disconnectUI.SetActive(false);
     }
 
     void OnClickLogin()
@@ -67,11 +74,6 @@ public class MenuManager : MonoBehaviour
     {
         MainMenu.SetActive(false);
         RegisterMenu.SetActive(true);
-    }
-
-    void OnClickGuest()
-    {
-
     }
 
     void OnClickSubmitRegister()
@@ -178,7 +180,7 @@ public class MenuManager : MonoBehaviour
 
         yield return request.SendWebRequest();
 
-        StoreTokenAndGoMainScreen(request);
+        StoreTokenAndGoMainScreen(request, State.Register);
     }
 
     IEnumerator SubmitLogin()
@@ -189,14 +191,13 @@ public class MenuManager : MonoBehaviour
         data["password"] = passwordLoginInput.text;
         string jsonStr = new JSONObject(data).ToString();
 
-        // UnityWebRequest request = Post("http://jes.api.user.safesuk.me/v1/users/login", jsonStr);
         UnityWebRequest request = Post("http://game.safesuk.me/login", jsonStr);
 
         yield return request.SendWebRequest();
-        StoreTokenAndGoMainScreen(request);
+        StoreTokenAndGoMainScreen(request, State.Login);
     }
 
-    void StoreTokenAndGoMainScreen(UnityWebRequest request)
+    void StoreTokenAndGoMainScreen(UnityWebRequest request, State state)
     {
         if (request.isNetworkError || request.isHttpError)
         {
@@ -210,9 +211,21 @@ public class MenuManager : MonoBehaviour
             string res = System.Text.Encoding.UTF8.GetString(request.downloadHandler.data);
             JSONObject response = new JSONObject(res);
             PlayerPrefs.SetString("token", response[1].ToString().Replace("\"", ""));
-            if (response[2] != null) {
-                GameManager.SetClothIndex(int.Parse(response[2].ToString()));
+            
+            if (state == State.Login)
+            {
+                GameManager.SetUsername(response[2].ToString().Replace("\"", ""));
+                GameManager.SetClothIndex(int.Parse(response[3].ToString()));
+                GameManager.SetScore(int.Parse(response[4].ToString()));
             }
+
+            else
+            {
+                GameManager.SetUsername(usernameRegisterInput.text);
+                GameManager.SetClothIndex(0);
+                GameManager.SetScore(0);
+            }
+
             loadingScreen.LoadScene();
         }
     }

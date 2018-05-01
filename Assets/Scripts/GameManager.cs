@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     public enum State { Start, Connect, Disconnect };
     public static GameObject player;
     private static State state = State.Start;
+    private static string username = "";
     private static int clothIndex = 0;
+    private static int score = 0;
     private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     private static Dictionary<string, GameObject> weapons = new Dictionary<string, GameObject>();
     private static Dictionary<string, GameObject> ammos = new Dictionary<string, GameObject>();
@@ -47,6 +49,26 @@ public class GameManager : MonoBehaviour
     public static GameObject GetPlayer(string _playerID)
     {
         return players[_playerID];
+    }
+
+    public static void SetUsername(string _username)
+    {
+        username = _username;
+    }
+
+    public static string GetUsername()
+    {
+        return username;
+    }
+
+    public static void SetScore(int _score)
+    {
+        score = _score;
+    }
+
+    public static int GetScore()
+    {
+        return score;
     }
 
     public static void SetClothIndex(int _index)

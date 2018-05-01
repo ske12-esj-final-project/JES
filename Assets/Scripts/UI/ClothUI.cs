@@ -8,6 +8,7 @@ public class ClothUI : MonoBehaviour
 {
     public Button previousButton;
     public Button nextButton;
+    public Button backButton;
     public Button confirmChangeButton;
     private ClothManager clothManager;
     private int index;
@@ -20,6 +21,7 @@ public class ClothUI : MonoBehaviour
         clothManager = GameObject.Find("Enemies").GetComponent<ClothManager>();
         previousButton.GetComponent<Button>().onClick.AddListener(() => PreviousCloth());
         nextButton.GetComponent<Button>().onClick.AddListener(() => NextCloth());
+        backButton.GetComponent<Button>().onClick.AddListener(() => CloseClothUI());
         confirmChangeButton.GetComponent<Button>().onClick.AddListener(() => ConfirmChangeCloth());
 
         GameObject go = GameObject.Find("SocketIO");
@@ -43,14 +45,21 @@ public class ClothUI : MonoBehaviour
     void ChangeCloth()
     {
         clothManager.ChangeCloth(index);
-        GameManager.SetClothIndex(index);
+    }
+
+    void CloseClothUI()
+    {
+        clothManager.ChangeCloth(GameManager.GetClothIndex());
+        GameObject.Find("RoomManager").GetComponent<RoomManager>().CloseClothUI();
     }
 
     void ConfirmChangeCloth()
     {
+        GameManager.SetClothIndex(index);
         Dictionary<string, string> data = new Dictionary<string, string>();
         data["d"] = string.Format("[{0}]", GameManager.GetClothIndex());
         socket.Emit("a1", new JSONObject(data));
+        CloseClothUI();
     }
 
 }

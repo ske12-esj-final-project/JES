@@ -16,10 +16,10 @@ public class LoadingScreenControl : MonoBehaviour {
 		StartCoroutine(AsynchronousLoad());
 	}
 	
-	IEnumerator AsynchronousLoad ()
+	IEnumerator AsynchronousLoad()
 	{
 		loadingScreen.SetActive(true);
-		AsyncOperation ao = SceneManager.LoadSceneAsync(nextScene);
+		AsyncOperation ao = SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Single);
 		ao.allowSceneActivation = false;
 
 		while (!ao.isDone)

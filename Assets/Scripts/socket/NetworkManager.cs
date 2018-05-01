@@ -7,7 +7,6 @@ using SocketIO;
 
 public class NetworkManager : MonoBehaviour
 {
-
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
     private GameObject player;
@@ -23,7 +22,6 @@ public class NetworkManager : MonoBehaviour
     void Start()
     {
         players = GameManager.GetPlayers();
-
         GameObject go = GameObject.Find("SocketIO");
         socket = go.GetComponent<SocketIOComponent>();
 
@@ -36,6 +34,7 @@ public class NetworkManager : MonoBehaviour
         socket.On("e", CurrentPlayerAlive);
         socket.On("x", Countdown);
         socket.On("w", FinishCountdown);
+        socket.On("a2", InterruptCountdown);
         socket.On("m", EnemyLeaveRoom);
         socket.On("disconnect", OnDisconnect);
     }
@@ -67,6 +66,15 @@ public class NetworkManager : MonoBehaviour
         return SceneManager.GetActiveScene().name == "Lobby";
     }
 
+    IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(1);
+        Dictionary<string, string> data = new Dictionary<string, string>();
+        string playerID = PlayerPrefs.GetString("playerID");
+        data["d"] = string.Format("[@{0}@]", playerID);
+        socket.Emit("v", new JSONObject(data));
+    }
+
     IEnumerator SetupPlayer()
     {
         yield return new WaitForSeconds(1);
@@ -83,17 +91,23 @@ public class NetworkManager : MonoBehaviour
         player.GetComponent<PlayerUI>().SetSecondText(second);
     }
 
+    void InterruptCountdown(SocketIOEvent evt)
+    {
+        player.GetComponent<PlayerUI>().DisableCountdownText();
+    }
+
     void FinishCountdown(SocketIOEvent evt)
     {
         GameManager.Reset();
         SceneManager.LoadScene("Terrain", LoadSceneMode.Single);
+        StartCoroutine("StartGame");
     }
 
     void Spawn(SocketIOEvent evt)
     {
         JSONObject jsonData = evt.data.GetField("d");
         PlayerSpawn(jsonData[0]);
-        EnemySpawn(jsonData[1]);
+        if (IsLobby()) EnemySpawn(jsonData[1]);
     }
 
     void PlayerSpawn(JSONObject playerData)

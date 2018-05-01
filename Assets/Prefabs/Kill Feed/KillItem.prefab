@@ -113,7 +113,8 @@ MonoBehaviour:
   player: 
   enemy: 
   weaponIconArray:
-  - {fileID: 21300022, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
+  - {fileID: 21300000, guid: 2e84f7ae97b0fff458c5f9eeb790518c, type: 3}
+  - {fileID: 21300010, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
   - {fileID: 21300028, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
   - {fileID: 21300014, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
   - {fileID: 21300026, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
@@ -123,6 +124,8 @@ MonoBehaviour:
   - {fileID: 21300044, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
   - {fileID: 21300046, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
   - {fileID: 21300036, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
+  - {fileID: 21300050, guid: 5163ae49a0de665458bba61cd20c99b1, type: 3}
+  - {fileID: 21300000, guid: cf29b2ae04faea44083fadb1aef61718, type: 3}
   playerText: {fileID: 114646493116812810}
   weaponIcon: {fileID: 114700177293840198}
   enemyText: {fileID: 114462539271395586}
@@ -152,13 +155,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: B
+  m_Text: a
 --- !u!114 &114646493116812810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -185,13 +188,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: A
+  m_Text: a
 --- !u!114 &114700177293840198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -258,8 +261,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 45.30997, y: 0}
-  m_SizeDelta: {x: 100, y: 30}
+  m_AnchoredPosition: {x: 105.2, y: 0}
+  m_SizeDelta: {x: 150, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224297764868706230
 RectTransform:
@@ -276,8 +279,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -53.591637, y: 0}
-  m_SizeDelta: {x: 100, y: 30}
+  m_AnchoredPosition: {x: -104.4, y: 0}
+  m_SizeDelta: {x: 150, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224514939078977314
 RectTransform:

@@ -21,12 +21,13 @@ GameObject:
   - component: {fileID: 4765774309412282}
   - component: {fileID: 33415428818453264}
   - component: {fileID: 23591692427859600}
+  - component: {fileID: 64969861088997856}
   m_Layer: 0
   m_Name: Leaves_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1335483840092854
 GameObject:
@@ -53,12 +54,13 @@ GameObject:
   - component: {fileID: 4505181537330686}
   - component: {fileID: 33069861410844690}
   - component: {fileID: 23222746713766464}
+  - component: {fileID: 64186371412339752}
   m_Layer: 0
   m_Name: Leaves_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!1 &1672092083740612
 GameObject:
@@ -70,12 +72,13 @@ GameObject:
   - component: {fileID: 4385928671833354}
   - component: {fileID: 33958720535277216}
   - component: {fileID: 23823362390028492}
+  - component: {fileID: 64429747186513326}
   m_Layer: 0
   m_Name: Leaves_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &4385928671833354
 Transform:
@@ -109,16 +112,16 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1335483840092854}
-  m_LocalRotation: {x: -0.00000003774895, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0000005, y: 1.0000005, z: 1.0000005}
+  m_LocalRotation: {x: -0.000000027151307, y: -0.6947412, z: 0.000000026225752, w: 0.71925986}
+  m_LocalPosition: {x: 70.00474, y: 80.51272, z: 83.25762}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4385928671833354}
   - {fileID: 4505181537330686}
   - {fileID: 4765774309412282}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -61.378002, z: 0}
 --- !u!4 &4765774309412282
 Transform:
   m_ObjectHideFlags: 1
@@ -255,3 +258,45 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1672092083740612}
   m_Mesh: {fileID: 4300000, guid: 99708e38b7e4b4ec6b29d4a5d5f7d913, type: 3}
+--- !u!64 &64186371412339752
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1454575681307050}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: 99708e38b7e4b4ec6b29d4a5d5f7d913, type: 3}
+--- !u!64 &64429747186513326
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1672092083740612}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 99708e38b7e4b4ec6b29d4a5d5f7d913, type: 3}
+--- !u!64 &64969861088997856
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1061716927483850}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300004, guid: 99708e38b7e4b4ec6b29d4a5d5f7d913, type: 3}

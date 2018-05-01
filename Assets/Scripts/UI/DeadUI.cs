@@ -25,6 +25,7 @@ public class DeadUI : MonoBehaviour
         rankText.text = string.Format("Rank #{0}", jsonData[1]);
         killText.text = string.Format("Kill {0}", jsonData[2]);
         rewardText.text = string.Format("Reward {0}", jsonData[3]);
+        GameManager.SetScore(GameManager.GetScore() + int.Parse(jsonData[3].ToString()));
     }
     
     void OnSpectate()

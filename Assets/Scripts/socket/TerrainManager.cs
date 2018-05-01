@@ -20,6 +20,11 @@ public class TerrainManager : MonoBehaviour
     private static Dictionary<string, GameObject> ammos;
     public GameObject[] weaponMapper;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -28,7 +33,6 @@ public class TerrainManager : MonoBehaviour
         players = GameManager.GetPlayers();
         weapons = GameManager.GetWeapons();
         ammos = GameManager.GetAmmos();
-        StartCoroutine("StartGame");
         socket.On("b", UpdateEnemyCurrentWeapon);
         socket.On("c", SpawnWeapon);
         socket.On("d", RemovePickupWeapon);
@@ -41,17 +45,6 @@ public class TerrainManager : MonoBehaviour
         socket.On("p", EnemyDead);
         socket.On("u", GetSafeAreaInfo);
         socket.On("t", WarnSafeArea);
-    }
-
-    IEnumerator StartGame()
-    {
-        yield return new WaitForSeconds(1);
-        Dictionary<string, string> data = new Dictionary<string, string>();
-        string playerID = PlayerPrefs.GetString("playerID");
-        data["d"] = string.Format("[@{0}@]", playerID);
-        socket.Emit("v", new JSONObject(data));
-        currentSafeAreaPos = safeArea.transform.position;
-        currentSafeAreaScale = safeArea.transform.localScale;
     }
 
     void UpdateEnemyCurrentWeapon(SocketIOEvent evt)
@@ -147,6 +140,7 @@ public class TerrainManager : MonoBehaviour
     void WarnSafeArea(SocketIOEvent evt)
     {
         JSONObject jsonData = evt.data.GetField("d");
+        warnSafeArea = GameObject.Find("Warn Safe Area");
         if (warnSafeArea != null)
         {
             warnSafeArea.transform.position = new Vector3(
@@ -178,6 +172,7 @@ public class TerrainManager : MonoBehaviour
         deadPersonObject.GetComponent<ClothManager>().ChangeCloth(idx);
         Transform UI = deadPersonObject.transform.GetChild(1).GetChild(0);
         UI.GetComponent<DeadUI>().Setup(jsonData);
+        socket.Emit("r");
     }
 
     void EnemyDead(SocketIOEvent evt)
@@ -198,16 +193,15 @@ public class TerrainManager : MonoBehaviour
         string playerName = jsonData[1].ToString().Replace("\"", "");
         string enemyName = jsonData[2].ToString().Replace("\"", "");
         int weaponIndex = int.Parse(jsonData[3].ToString());
-        player.transform.GetChild(2).GetChild(12).GetComponent<KillFeed>().SetUp(playerName, enemyName, weaponIndex);
-    }
-
-    void KillFeed(SocketIOEvent evt)
-    {
-        JSONObject jsonData = evt.data.GetField("d");
+        KillFeed killFeed = player.transform.GetChild(2).GetChild(13).GetComponent<KillFeed>();
+        killFeed.SetUp(playerName, enemyName, weaponIndex);
     }
 
     IEnumerator MoveSafeArea()
     {
+        safeArea = GameObject.Find("Safe Area");
+        currentSafeAreaPos = safeArea.transform.position;
+        currentSafeAreaScale = safeArea.transform.localScale;
         float timeToMove = 10f;
         float t = 0f;
         while (t < 1)
@@ -237,9 +231,11 @@ public class TerrainManager : MonoBehaviour
         player.GetComponent<FirstPersonController>().SetCursorLock(false);
         player.GetComponent<FirstPersonController>().enabled = false;
         player.GetComponent<Inventory>().currentWeapon.GetComponent<Shooting>().enabled = false;
+        safeArea = GameObject.Find("Safe Area");
         safeArea.GetComponent<SafeArea>().enabled = false;
         PlayerUI playerUI = player.GetComponent<PlayerUI>();
         playerUI.ShowWinScreen(jsonData);
+        socket.Emit("r");
     }
 
     void PlayerKill(SocketIOEvent evts)
